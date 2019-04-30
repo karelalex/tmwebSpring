@@ -1,0 +1,196 @@
+.header h1 {
+    font-size: 36px;
+    color: white;
+    margin: 0;
+
+}
+
+.header ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-left: 107px;
+}
+
+.header li {
+    display: inline-block;
+    border-left: white 3px solid;
+    border-right: white 3px solid;
+    margin-left: 17px;
+    padding: 1px 5px 1px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.header li a {
+    color: cyan;
+
+}
+
+.header li a:hover {
+    color: chartreuse;
+    text-decoration: underline;
+}
+
+
+.header, .footer {
+    background-color: black;
+    color: cyan;
+}
+
+.footer p {
+    margin-left: 25%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: whitesmoke;
+}
+
+.content {
+    padding-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    flex-grow: 1;
+
+}
+
+table {
+    padding: 5px;
+    border-style: none;
+    width: 90%;
+    margin: auto;
+    border-spacing: 5px 3px;
+}
+
+.content h1 {
+    margin-left: 15%;
+}
+
+table .id {
+    width: 20%;
+}
+
+table .name {
+    width: 15%;
+}
+
+table .action{
+    width: min-content;
+    white-space: nowrap;
+}
+
+table tr:nth-child(odd) td {
+    background-color: rgb(255, 253, 245);
+}
+
+table tr:nth-child(even) td {
+    background-color: aliceblue;
+}
+
+tr td:nth-child(1) {
+    text-align: center;
+    width: 25px;
+}
+
+td, th {
+    padding: 5px;
+    border-style: solid;
+    border-width: 3px;
+    border-color: darkgray;
+    border-radius: 12px;
+}
+
+.prop-cover {
+    width: 80%;
+    margin: auto;
+    background-color: aquamarine;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 2px;
+    border-radius: 10px;
+}
+
+.prop-cover div {
+    border: black 1px solid;
+    min-height: 20px;
+    padding: 5px 15px 5px;
+
+}
+
+.prop-name {
+    width: 25%;
+    margin-right: 15px;
+    background-color: #f6f4f2;
+    font-family: Arial, serif;
+    font-size: 1.1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+
+}
+.prop-name p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+
+.prop-desc {
+    width: 65%;
+    background-color: white;
+}
+
+.prop-desc input, .prop-desc textarea, .prop-desc select {
+    width: 100%;
+    background-color: aliceblue;
+    border-style: inset;
+    border-width: 2px;
+
+}
+
+.margin_10{
+    margin-left: 10%;
+}
+.margin_5{
+    margin-left: 5%;
+}
+
+
+.but-cover button {
+    min-height: 40px;
+    background-color: #2895c2;
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 1.5em;
+}
+
+.but-cover button:hover {
+    color: #d1cfcd;
+}
+
+.subheader {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 120px;
+    margin-top: 15px;
+    margin-right: 60px;
+    align-items: flex-end;
+}
+.big-logo {
+    max-height: 500px;
+}
+.message{
+    text-align: center;
+    background-color: mistyrose;
+    color: red;
+}
