@@ -55,9 +55,7 @@
             <div class="prop-cover">
                 <div class="prop-name"><p>Текущий статус</p></div>
                 <div class="prop-desc"><form:select path="status">
-                    <c:forEach var="stat" items="<%=Status.values()%>">
-                        <option value="${stat.name()}" ${stat.name() == project.status.name() ? 'selected="selected"' : ''}>${stat.displayName}</option>
-                    </c:forEach>
+                   <form:options items="${Status.values()}" itemLabel="displayName"/>
                 </form:select></div>
             </div>
             <div class="but-cover margin_10">

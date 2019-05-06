@@ -1,12 +1,13 @@
 package ru.karelin.tmwebspring.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ru.karelin.tmwebspring.entity.Task;
 import ru.karelin.tmwebspring.repository.TaskRepository;
-import ru.karelin.tmwebspring.repository.TaskRepositoryImpl;
 
 import java.util.List;
 
+@Service
 public class TaskService {
 
 

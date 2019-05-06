@@ -1,6 +1,5 @@
 package ru.karelin.tmwebspring.controller;
 
-import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +10,6 @@ import ru.karelin.tmwebspring.enumeration.Status;
 import ru.karelin.tmwebspring.service.ProjectService;
 import ru.karelin.tmwebspring.service.UserService;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -44,8 +42,8 @@ public class ProjectController {
 
     }
 
-    @GetMapping("/show/{pid}")
-    public String showProjectList(@PathVariable("pid") String projectId,  HttpSession session, Model model) {
+    @GetMapping("/show/{id}")
+    public String showProject(@PathVariable("id") String projectId,  HttpSession session, Model model) {
         User currentUser = userService.find((String) session.getAttribute("userId"));
         model.addAttribute("user", currentUser);
         Project project = projectService.findByIdAndUserId(projectId, currentUser.getId());

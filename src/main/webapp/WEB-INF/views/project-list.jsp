@@ -45,7 +45,7 @@
                     <a href="<%=request.getContextPath()%>/project/show/${p.id}"><i class="fas fa-receipt"></i></a>&nbsp;
                     <a href="<%=request.getContextPath()%>/project/edit/${p.id}"><i class="fas fa-edit"></i></a>&nbsp;
                     <a href="<%=request.getContextPath()%>/project/remove/${p.id}"><i class="fas fa-trash-alt"></i></a>&nbsp;
-                    <a href="<%=request.getContextPath()%>/showtask?pid=${p.id}"><i class="fas fa-list-alt"></i></a>
+                    <a href="<%=request.getContextPath()%>/task/show/pid/${p.id}"><i class="fas fa-list-alt"></i></a>
                 </td>
             </tr>
         </c:forEach>

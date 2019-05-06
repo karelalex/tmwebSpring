@@ -47,7 +47,7 @@
             <div class="prop-desc">${project.status.displayName}</div>
         </div>
         <div class="but-cover margin_10">
-            <a href="<%=request.getContextPath()%>/showtask?pid=${project.id}"> <button type="button">Задачи</button></a>
+            <a href="<%=request.getContextPath()%>/task/show/pid/${project.id}"> <button type="button">Задачи</button></a>
             <a href="<%=request.getContextPath()%>/project/edit/${project.id}"> <button type="button">Редактировать</button></a>
             <a href="<%=request.getContextPath()%>/project/remove/${project.id}"> <button type="button">Удалить</button></a>
         </div>

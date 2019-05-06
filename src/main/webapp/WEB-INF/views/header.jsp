@@ -23,7 +23,7 @@
         </c:if>
         <c:if test="${user!=null}">
             <li><a href="<%=request.getContextPath()%>/project/show">Проекты</a></li>
-            <li><a href="<%=request.getContextPath()%>/showtask">Задачи</a></li>
+            <li><a href="${pageContext.request.contextPath}/task/show">Задачи</a></li>
             <li><a href="<%=request.getContextPath()%>/logout">Выход</a></li>
         </c:if>
     </ul>
