@@ -105,7 +105,6 @@
                 <configuration>
                     <!-- http port -->
                     <port>8080</port>
-                    <!-- application path always starts with /-->
                     <path>/tom</path>
                 </configuration>
             </plugin>
