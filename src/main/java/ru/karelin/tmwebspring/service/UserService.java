@@ -2,11 +2,13 @@ package ru.karelin.tmwebspring.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.karelin.tmwebspring.entity.User;
 import ru.karelin.tmwebspring.repository.UserRepository;
 import ru.karelin.tmwebspring.util.MD5Generator;
 
 @Service
+@Transactional
 public class UserService {
 
     @Autowired
@@ -21,6 +23,7 @@ public class UserService {
         return null;
     }
     public User find(String id){
+        if(id==null) return null;
         return userRepository.find(id);
     }
 
@@ -29,6 +32,7 @@ public class UserService {
     }
 
     public void save(User user) {
+        if(user==null) return;
         userRepository.save(user);
     }
 }

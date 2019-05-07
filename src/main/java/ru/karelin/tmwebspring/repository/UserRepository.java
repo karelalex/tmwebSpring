@@ -1,9 +1,12 @@
 package ru.karelin.tmwebspring.repository;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.karelin.tmwebspring.entity.User;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.*;
 
 @Repository
@@ -11,23 +14,26 @@ public class UserRepository {
 
     private final Map<String, User> userMap = new LinkedHashMap<>();
 
+    @PersistenceContext
+    EntityManager em;
 
 
     public User find(String userId) {
-        return userMap.get(userId);
+        return em.find(User.class, userId);
     }
 
-    public void save(User user) {
-        userMap.put(user.getId(), user);
-    }
+    public void save(User user) {em.merge(user);}
 
     public void remove(@NotNull User user) {
-        userMap.remove(user.getId());
+        em.remove(user);
     }
 
     public User findByLogin(String login) {
-        for (User u : userMap.values()) {
-            if (u.getLogin().equals(login)) return u;
+        List<User> list = em.createQuery("select u from User u where u.login = :login", User.class)
+                .setParameter("login", login)
+                .getResultList();
+        if(list.size()>0) {
+            return list.get(0);
         }
         return null;
     }

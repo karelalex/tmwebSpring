@@ -5,17 +5,34 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 import ru.karelin.tmwebspring.enumeration.Status;
 
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
+@Entity
 public class Project extends AbstractEntity {
+
     private String name;
+
     private String description;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
     private Date startingDate;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
     private Date finishDate;
+
+    @Enumerated(EnumType.STRING)
     private Status status;
-    private String userId;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "project")
+    List<Task> tasks = new ArrayList<>();
+
+    @ManyToOne
+    private User user;
 }

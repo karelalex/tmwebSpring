@@ -1,11 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ page import="ru.karelin.tmwebspring.entity.Project" %>
 <%@ page import="ru.karelin.tmwebspring.enumeration.Status" %>
-<%@ page import="java.util.Date" %>
-<%@ page import="java.util.List" %>
-<%@ page import="ru.karelin.tmwebspring.entity.Task" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: alexk
   Date: 25.04.2019
@@ -34,7 +31,7 @@
         <div class="prop-cover">
             <div class="prop-name"><p>Проект</p></div>
             <div class="prop-desc">
-                <form:select path="projectId">
+                <form:select path="project.id">
                     <%--@elvariable id="projects" type="java.util.List<ru.karelin.tmwebspring.entity.Project>"--%>
                     <form:options items="${projects}" itemValue="id" itemLabel="name"/>
                 </form:select></div>

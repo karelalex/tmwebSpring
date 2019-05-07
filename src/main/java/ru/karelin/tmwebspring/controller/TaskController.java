@@ -77,7 +77,7 @@ public class TaskController {
         Task task = new Task();
         task.setStartingDate(new Date());
         task.setFinishDate(new Date());
-        task.setProjectId(projectId);
+        task.setProject(projectService.findByIdAndUserId(projectId, currentUser.getId()));
         model.addAttribute("task", task);
         final List<Project> projects = projectService.findAllByUserId(currentUser.getId());
         model.addAttribute("projects", projects);
@@ -85,10 +85,10 @@ public class TaskController {
     }
 
     @PostMapping("/create")
-    public String createProject(@ModelAttribute("task") Task task, HttpSession session) {
+    public String createProject(@ModelAttribute("task") Task task,  HttpSession session) {
         User currentUser = userService.find((String) session.getAttribute("userId"));
         task.setStatus(Status.PLANNED);
-        task.setUserId(currentUser.getId());
+        task.setUser(currentUser);
         taskService.save(task);
         return "redirect:/task/show/"+task.getId();
     }
@@ -107,7 +107,7 @@ public class TaskController {
     @PostMapping("/edit")
     public String editTask(@ModelAttribute("task") Task task, HttpSession session) {
         User currentUser = userService.find((String) session.getAttribute("userId"));
-        task.setUserId(currentUser.getId());
+        task.setUser(currentUser);
         taskService.save(task);
         return "redirect:/task/show/"+task.getId();
     }

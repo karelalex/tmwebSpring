@@ -5,7 +5,6 @@ import ru.karelin.tmwebspring.entity.AbstractEntity;
 import java.util.List;
 
 public interface EntityRepository<T extends AbstractEntity> {
-    List<T> findAll();
 
     List<T> findAllByUserId(String userId);
 

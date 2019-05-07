@@ -25,7 +25,7 @@
         <div class="prop-cover">
             <div class="prop-name"><p>Проект</p></div>
             <div class="prop-desc">
-                <form:select  path="projectId">
+                <form:select  path="project.id">
                     <%--@elvariable id="projects" type="java.util.List<ru.karelin.tmwebspring.entity.Project>"--%>
                     <form:options items="${projects}" itemLabel="name" itemValue="id" />
                 </form:select></div>

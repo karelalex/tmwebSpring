@@ -42,7 +42,7 @@
             <tr>
                 <td>${iter.count}</td>
                 <td>${t.id}</td>
-                <td><a href="${pageContext.request.contextPath}/project/show/${t.projectId}">${t.projectId}</a></td>
+                <td><a href="${pageContext.request.contextPath}/project/show/${t.project.id}">${t.project.name}</a></td>
                 <td>${t.name}</td>
                 <td>${t.description}</td>
                 <td>

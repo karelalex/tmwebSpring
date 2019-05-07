@@ -3,6 +3,7 @@ package ru.karelin.tmwebspring.service;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.karelin.tmwebspring.entity.Project;
 import ru.karelin.tmwebspring.entity.Task;
 import ru.karelin.tmwebspring.repository.ProjectRepository;
@@ -11,6 +12,7 @@ import ru.karelin.tmwebspring.repository.TaskRepository;
 import java.util.List;
 
 @Service
+@Transactional
 public class ProjectService {
     @Autowired
     private ProjectRepository projectRepository;

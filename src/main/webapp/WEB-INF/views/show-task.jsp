@@ -17,8 +17,7 @@
 <body>
 <jsp:include page="header.jsp"/>
 <div class="content">
-    <% Task task = (Task) request.getAttribute("task");%>
-      <c:set scope="page" var="task" value="<%=task%>" />
+    <%--@elvariable id="task" type="ru.karelin.tmwebspring.entity.Task"--%>
     <c:if test="${task==null}">
         <h1>Задачи с указанным id  не существует</h1>
     </c:if>
@@ -29,8 +28,8 @@
             <div class="prop-desc">${task.id}</div>
         </div>
         <div class="prop-cover">
-            <div class="prop-name"><p>Id Проекта</p></div>
-            <div class="prop-desc"><a href="<%=request.getContextPath()%>/project/show/${task.projectId}"> ${task.projectId}</a></div>
+            <div class="prop-name"><p>Имя Проекта</p></div>
+            <div class="prop-desc"><a href="<%=request.getContextPath()%>/project/show/${task.project.id}"> ${task.project.name}</a></div>
         </div>
         <div class="prop-cover">
             <div class="prop-name"><p>Название</p></div>

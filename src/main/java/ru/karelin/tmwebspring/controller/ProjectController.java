@@ -55,7 +55,7 @@ public class ProjectController {
     @PostMapping("/edit")
     public String editProject(@ModelAttribute("project") Project project, HttpSession session) {
         User currentUser = userService.find((String) session.getAttribute("userId"));
-        project.setUserId(currentUser.getId());
+        project.setUser(currentUser);
         projectService.save(project);
         return "redirect:/project/show/"+project.getId();
     }
@@ -80,7 +80,7 @@ public class ProjectController {
     public String createProject(@ModelAttribute("project") Project project, HttpSession session) {
         User currentUser = userService.find((String) session.getAttribute("userId"));
         project.setStatus(Status.PLANNED);
-        project.setUserId(currentUser.getId());
+        project.setUser(currentUser);
         projectService.save(project);
         return "redirect:/project/show/"+project.getId();
     }
