@@ -53,8 +53,8 @@
             <div class="prop-desc">${task.status.displayName}</div>
         </div>
         <div class="but-cover margin_10">
-            <a href="<%=request.getContextPath()%>/edittask?tid=${task.id}"> <button type="button">Редактировать</button></a>
-            <a href="<%=request.getContextPath()%>/removetask?tid=${task.id}"> <button type="button">Удалить</button></a>
+            <a href="<%=request.getContextPath()%>/task/edit/${task.id}"> <button type="button">Редактировать</button></a>
+            <a href="<%=request.getContextPath()%>/task/remove/${task.id}"> <button type="button">Удалить</button></a>
         </div>
     </c:if>
 

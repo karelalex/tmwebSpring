@@ -11,6 +11,7 @@ import ru.karelin.tmwebspring.service.ProjectService;
 import ru.karelin.tmwebspring.service.UserService;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -70,6 +71,8 @@ public class ProjectController {
         User currentUser = userService.find((String) session.getAttribute("userId"));
         model.addAttribute("user", currentUser);
         Project project = new Project();
+        project.setStartingDate(new Date());
+        project.setFinishDate(new Date());
         model.addAttribute("project", project);
         return "create-project";
     }

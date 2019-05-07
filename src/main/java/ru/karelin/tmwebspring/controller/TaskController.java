@@ -19,6 +19,7 @@ import java.util.List;
 @RequestMapping("/task")
 @Controller
 public class TaskController {
+
     @Autowired
     private UserService userService;
 
@@ -90,6 +91,31 @@ public class TaskController {
         task.setUserId(currentUser.getId());
         taskService.save(task);
         return "redirect:/task/show/"+task.getId();
+    }
+
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable("id") String taskId, HttpSession session, Model model){
+        User currentUser = userService.find((String) session.getAttribute("userId"));
+        model.addAttribute("user", currentUser);
+        Task task = taskService.findByIdAndUserId(taskId, currentUser.getId());
+        model.addAttribute("task", task);
+        final List<Project> projects = projectService.findAllByUserId(currentUser.getId());
+        model.addAttribute("projects", projects);
+        return "edit-task";
+    }
+
+    @PostMapping("/edit")
+    public String editTask(@ModelAttribute("task") Task task, HttpSession session) {
+        User currentUser = userService.find((String) session.getAttribute("userId"));
+        task.setUserId(currentUser.getId());
+        taskService.save(task);
+        return "redirect:/task/show/"+task.getId();
+    }
+
+    @GetMapping("remove/{id}")
+    public String removeTask (@PathVariable("id") String taskId, HttpSession session) {
+        taskService.remove(taskId, (String) session.getAttribute("userId"));
+        return "redirect:/task/show";
     }
 
 }
