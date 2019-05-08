@@ -34,6 +34,6 @@ public class TaskService {
 
     public void remove(String id, String userId) {
         Task task = taskRepository.findByIdAndUserId(id, userId);
-        if (task != null) taskRepository.remove(task);
+        if (task != null) taskRepository.delete(task);
     }
 }

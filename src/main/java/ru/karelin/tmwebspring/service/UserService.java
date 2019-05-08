@@ -24,7 +24,7 @@ public class UserService {
     }
     public User find(String id){
         if(id==null) return null;
-        return userRepository.find(id);
+        return userRepository.findOneById(id);
     }
 
     public boolean checkLogin(String login) {

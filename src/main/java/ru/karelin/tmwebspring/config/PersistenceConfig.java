@@ -4,22 +4,21 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.Scope;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.context.WebApplicationContext;
 
-import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
 @PropertySource({"classpath:application.properties", "classpath:hidden.properties"})
 @EnableTransactionManagement
+@EnableJpaRepositories(basePackages = "ru.karelin.tmwebspring.repository")
 public class PersistenceConfig {
 
     @Bean
@@ -52,6 +51,13 @@ public class PersistenceConfig {
         properties.put("hibernate.hbm2ddl.auto", dbStrategy);
         properties.put("hibernate.dialect", dialect);
         properties.put("hibernate.dialect.storage_engine", engine);
+        properties.put("hibernate.cache.use_second_level_cache", "true");
+        properties.put("hibernate.cache.use_query_cache", "true");
+        properties.put("hibernate.cache.use_minimal_puts", "true");
+        properties.put("hibernate.cache.hazelcast.use_lite_member", "true");
+        properties.put("hibernate.cache.region_prefix", "tm-spring");
+//        properties.put("hibernate.cache.provider_configuration_file_resource_path", "hazelcast.xml");
+       properties.put("hibernate.cache.region.factory_class", "com.hazelcast.hibernate.HazelcastLocalCacheRegionFactory");
         factoryBean.setJpaProperties(properties);
         return factoryBean;
     }

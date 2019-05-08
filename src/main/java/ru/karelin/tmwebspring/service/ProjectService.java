@@ -20,6 +20,7 @@ public class ProjectService {
     private TaskRepository taskRepository;
 
     public void save(Project project) {
+        if (project == null) return;
         projectRepository.save(project);
     }
 
@@ -27,12 +28,7 @@ public class ProjectService {
         if (projectId == null || projectId.isEmpty()) return;
         Project project = projectRepository.findByIdAndUserId(projectId, userId);
         if (project != null) {
-            List<Task> tasks = taskRepository.findAllByUserIdAndProjectId(userId, projectId);
-            for (Task t : tasks
-            ) {
-                taskRepository.remove(t);
-            }
-            projectRepository.remove(project);
+            projectRepository.delete(project);
         }
     }
 
