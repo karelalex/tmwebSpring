@@ -2,18 +2,18 @@ package ru.karelin.tmwebspring.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
-    @Override
+public class AppInitializer /*extends AbstractAnnotationConfigDispatcherServletInitializer*/ {
+//    @Override
     protected Class<?>[] getRootConfigClasses() {
         return new Class[] {PersistenceConfig.class};
     }
 
-    @Override
+//    @Override
     protected Class<?>[] getServletConfigClasses() {
         return new Class[] {WebConfig.class};
     }
 
-    @Override
+//    @Override
     protected String[] getServletMappings() {
         return new String[] {"/"};
     }
