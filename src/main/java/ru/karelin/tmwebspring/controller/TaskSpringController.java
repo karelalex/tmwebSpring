@@ -18,7 +18,7 @@ import java.util.List;
 
 @RequestMapping("/task")
 @Controller
-public class TaskController {
+public class TaskSpringController {
 
     @Autowired
     private UserService userService;

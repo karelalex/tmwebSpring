@@ -18,5 +18,5 @@ public class User extends AbstractEntity {
     @Column(unique = true)
     private String login;
     private String passHash;
-    private String username;
+    private String userName;
 }

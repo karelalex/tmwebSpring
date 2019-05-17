@@ -20,7 +20,7 @@ import ru.karelin.tmwebspring.service.UserService;
 import ru.karelin.tmwebspring.util.MD5Generator;
 
 @Controller
-public class RegistrationController {
+public class RegistrationSpringController {
 
     @Autowired
     @Qualifier("userDtoValidator")
@@ -53,7 +53,7 @@ public class RegistrationController {
             User user = new User();
             user.setLogin(userRegDto.getLogin());
             user.setPassHash(MD5Generator.generate(userRegDto.getPassword()));
-            user.setUsername(userRegDto.getUserName());
+            user.setUserName(userRegDto.getUserName());
             userService.save(user);
             return "/login-form";
         }

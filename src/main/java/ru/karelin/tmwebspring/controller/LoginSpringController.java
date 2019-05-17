@@ -12,7 +12,7 @@ import ru.karelin.tmwebspring.service.UserService;
 import javax.servlet.http.HttpSession;
 
 @Controller
-public class LoginController {
+public class LoginSpringController {
 
     @Autowired
     private UserService userService;

@@ -19,7 +19,7 @@
 <div class="content">
 
     <h1>Вход в систему</h1>
-    <form action="${pageContext.request.contextPath}/login" method="post" enctype="application/x-www-form-urlencoded">
+    <form action="${pageContext.request.contextPath}/spring/login" method="post" enctype="application/x-www-form-urlencoded">
         <div class="prop-cover">
             <div class="prop-name"><p>Логин</p></div>
             <div class="prop-desc">

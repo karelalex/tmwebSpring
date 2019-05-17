@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition>
+    <h:head>
+    </h:head>
+    <h:body>
+        <p:menubar id="mainBar">
+            <p:menuitem value="Главная" outcome="main" icon="fa fa-home"/>
+            <f:facet name="options">
+                <h:form>
+                    <ui:fragment rendered="#{dateController.userName==null}">
+                        <p:outputLabel for="login" value="Логин"/>
+                        <p:inputText id="login" value="#{mainController.login}" placeholder="Логин" label="Логин">
+                        </p:inputText>
+                        <p:outputLabel for="pass" value="Пароль"/>
+                        <p:password id="pass" value="#{mainController.password}" placeholder="Пароль" label="Логин">
+                        </p:password>
+                        <p:commandButton value="Войти" actionListener="#{mainController.login}" update="mainBar"/>
+                    </ui:fragment>
+                    <ui:fragment rendered="#{dateController.userName!=null}">
+                        <h:outputLabel value="Привет #{dateController.userName}"/>
+                        <p:commandButton value="Выйти" action="#{mainController.logout}" ajax="false"/>
+                    </ui:fragment>
+                </h:form>
+            </f:facet>
+        </p:menubar>
+        <ui:insert name="mainBody">
+            <h1>Добро пожаловать на заглавную страницу нашего офигенного сайта</h1>
+            <p:graphicImage name="/images/clock.png"/>
+        </ui:insert>
+    </h:body>
+</ui:composition>
+>
+</html>
