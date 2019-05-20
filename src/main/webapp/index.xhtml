@@ -12,7 +12,11 @@
 <h:body>
     <f:view>
         <ui:composition template="main-template.xhtml">
-            <ui:define name="mainBody">Превед</ui:define>
+            <ui:define name="mainBody">
+                <h1>Добро пожаловать на заглавную страницу нашего офигенного сайта</h1>
+                <p:graphicImage library="images" name="clock.png" />
+            </ui:define>
+            <ui:param name="pageName" value="Заглавная страница" />
         </ui:composition>
     </f:view>
 </h:body>

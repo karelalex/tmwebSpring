@@ -1,7 +1,5 @@
 package ru.karelin.tmwebspring.faces;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import ru.karelin.tmwebspring.entity.User;
 import ru.karelin.tmwebspring.service.UserService;
 
@@ -10,6 +8,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import java.util.Random;
 
 
 @ManagedBean
@@ -19,13 +18,13 @@ public class MainController {
     @ManagedProperty(value = "#{userService}")
     private UserService userService;
 
+    private HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
     private String login;
     private String password;
 
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
-
 
     public String getLogin() {
         return login;
@@ -43,21 +42,28 @@ public class MainController {
         this.password = password;
     }
 
-    public String login(){
+    public String login() {
         User user = userService.findByLoginAndPassword(login, password);
         System.out.println(login);
         if (user != null) {
-            System.out.println("охуеть");
-            HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
             session.setAttribute("userId", user.getId());
             return "main";
         } else {
             return "main";
         }
     }
-    public String logout(){
-        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+
+    public String logout() {
         session.invalidate();
         return "main";
+    }
+
+    public String getUserName() {
+        String userId = (String) session.getAttribute("userId");
+        if (userId != null) {
+            User user = userService.find(userId);
+            return user.getUserName();
+        }
+        return null;
     }
 }

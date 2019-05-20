@@ -2,6 +2,7 @@ package ru.karelin.tmwebspring.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.format.annotation.DateTimeFormat;
 import ru.karelin.tmwebspring.enumeration.Status;
@@ -38,4 +39,15 @@ public class Project extends AbstractEntity {
 
     @ManyToOne
     private User user;
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", startingDate=" + startingDate +
+                ", finishDate=" + finishDate +
+                ", status=" + status +
+                '}';
+    }
 }

@@ -4,12 +4,89 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui" xmlns:P="http://java.sun.com/jsf/html">
 <f:view>
+    <f:metadata>
+        <f:viewParam name="projectId" value="#{projectController.projectId}"/>
+        <f:viewAction action="#{projectController.initCurrentProject}"/>
+        <f:viewParam name="create" value="#{projectController.creating}"/>
+    </f:metadata>
     <ui:composition template="main-template.xhtml">
         <ui:define name="mainBody">
-            <div>Всё охуенно.</div>
+            <h:form id="projectForm">
+                <p:panelGrid columns="2" id="mainGrid">
+                    <p:outputLabel value="Id:"/>
+                    <p:outputLabel value="#{projectController.currentProject.id}"/>
+
+                    <p:outputLabel value="Название:"/>
+                    <h:panelGroup>
+                        <p:outputLabel value="#{projectController.currentProject.name}"
+                                       rendered="#{projectController.creating==false}"/>
+
+                        <p:inputText value="#{projectController.currentProject.name}"
+                                     rendered="#{projectController.creating==true}" id="name" required="true"
+                                     requiredMessage="Это поле обязательно для заполнения"
+                                     validatorMessage="Длина должна быть не менее 3-х символов">
+                            <f:validateLength minimum="3">
+                            </f:validateLength>
+                        </p:inputText>
+                        <P:message for="name" style="color: red" rendered="#{projectController.creating==true}"/>
+                    </h:panelGroup>
+                    <p:outputLabel value="Описание:"/>
+                    <p:outputLabel value="#{projectController.currentProject.description}"
+                                   rendered="#{projectController.creating==false}"/>
+                    <p:inputTextarea value="#{projectController.currentProject.description}"
+                                     rendered="#{projectController.creating==true}"/>
+
+                    <p:outputLabel value="Дата начала"/>
+                    <p:outputLabel value="#{projectController.currentProject.startingDate}"
+                                   rendered="#{projectController.creating==false}">
+                        <f:convertDateTime pattern="dd-MM-yyyy"/>
+                    </p:outputLabel>
+                    <p:calendar value="#{projectController.currentProject.startingDate}" pattern="dd-MM-yyyy"
+                                mask="true" rendered="#{projectController.creating==true}" id="startDate">
+
+                    </p:calendar>
+
+
+                    <p:outputLabel value="Дата завершения"/>
+                    <h:panelGroup>
+                        <p:outputLabel value="#{projectController.currentProject.finishDate}"
+                                       rendered="#{projectController.creating==false}">
+                            <f:convertDateTime pattern="dd-MM-yyyy"/>
+                        </p:outputLabel>
+                        <p:calendar value="#{projectController.currentProject.finishDate}"
+                                    pattern="dd-MM-yyyy" mask="true"
+                                    id="finishDate" rendered="#{projectController.creating==true}">
+                            <f:validator validatorId="DateValidator"/>
+                        </p:calendar>
+                        <p:message for="finishDate" style="color: red" rendered="#{projectController.creating==true}"/></h:panelGroup>
+
+                    <p:outputLabel value="Статус"/>
+                    <p:outputLabel value="#{projectController.currentProject.status.displayName}"
+                                   rendered="#{projectController.creating==false}"/>
+                    <p:selectOneMenu value="#{projectController.currentProject.status}"
+                                     rendered="#{projectController.creating==true}">
+                        <f:selectItems value="#{projectController.statuses}" var="status"
+                                       itemLabel="#{status.displayName}"/>
+                    </p:selectOneMenu>
+                </p:panelGrid>
+                <p:spacer height="6"/>
+                <p:commandButton value="Редактировать" action="#{projectController.setCreating(true)}"
+                                 update="projectForm" rendered="#{projectController.creating==false}"/>
+                <p:commandButton value="Удалить" action="#{projectController.removeProject}"
+                                 rendered="#{projectController.creating==false}">
+                    <p:confirm header="Удаление проекта"
+                               message="Удалить проект #{projectController.currentProject.name}?"
+                               icon="fa fa-exclamation-triangle"/>
+                </p:commandButton>
+                <p:commandButton value="Сохранить" rendered="#{projectController.creating==true}"
+                                 action="#{projectController.saveProject}" update="projectForm"/>
+
+            </h:form>
         </ui:define>
+        <ui:param name="pageName" value="Описание проекта"/>
     </ui:composition>
 </f:view>
 </html>

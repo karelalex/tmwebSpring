@@ -13,28 +13,48 @@
     <h:body>
         <p:menubar id="mainBar">
             <p:menuitem value="Главная" outcome="main" icon="fa fa-home"/>
+            <p:submenu icon="fa fa-navicon" label="Проекты">
+                <p:menuitem icon="fa fa-plus" value="Создать" outcome="project">
+                    <f:param value="true" name="create"/>
+                </p:menuitem>
+                <p:menuitem value="Список" outcome="projectList" icon="fa fa-list" />
+            </p:submenu>
+            <p:submenu icon="fa fa-tasks" label="Задачи">
+                <p:menuitem icon="fa fa-plus" value="Создать" outcome="task">
+                    <f:param value="true" name="create"/>
+                </p:menuitem>
+                <p:menuitem value="Список" outcome="taskList" icon="fa fa-list" />
+            </p:submenu>
             <f:facet name="options">
-                <h:form>
-                    <ui:fragment rendered="#{dateController.userName==null}">
-                        <p:outputLabel for="login" value="Логин"/>
+                <h:form id="loginForm">
+                    <ui:param name="userName" value="#{mainController.userName}" />
+                    <ui:fragment rendered="#{userName==null}">
+                        <p:outputLabel for="login" value="Логин"/><p:spacer width="5" />
                         <p:inputText id="login" value="#{mainController.login}" placeholder="Логин" label="Логин">
                         </p:inputText>
-                        <p:outputLabel for="pass" value="Пароль"/>
+                        <p:spacer width="10" />
+                        <p:outputLabel for="pass" value="Пароль"/><p:spacer width="5" />
                         <p:password id="pass" value="#{mainController.password}" placeholder="Пароль" label="Логин">
                         </p:password>
                         <p:commandButton value="Войти" actionListener="#{mainController.login}" update="mainBar"/>
                     </ui:fragment>
-                    <ui:fragment rendered="#{dateController.userName!=null}">
-                        <h:outputLabel value="Привет #{dateController.userName}"/>
+                    <ui:fragment rendered="#{userName!=null}">
+                        <h:outputText value="Привет #{userName}"/> <p:spacer width="10" />
                         <p:commandButton value="Выйти" action="#{mainController.logout}" ajax="false"/>
                     </ui:fragment>
                 </h:form>
             </f:facet>
         </p:menubar>
-        <ui:insert name="mainBody">
-            <h1>Добро пожаловать на заглавную страницу нашего офигенного сайта</h1>
-            <p:graphicImage name="/images/clock.png"/>
-        </ui:insert>
+        <p:panel id="basic" header="#{pageName}" footer="&copy; Все права принадлежат создателям сайта" style="margin-bottom:20px">
+            <ui:insert name="mainBody">
+
+
+            </ui:insert>
+        </p:panel>
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+            <p:commandButton value="Да" type="button" styleClass="ui-confirmdialog-yes" icon="fa fa-check-circle" />
+            <p:commandButton value="Нет" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-times-circle" />
+        </p:confirmDialog>
     </h:body>
 </ui:composition>
 >

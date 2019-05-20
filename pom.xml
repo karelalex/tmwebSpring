@@ -110,7 +110,7 @@
             <version>17.0.0</version>
             <scope>compile</scope>
         </dependency>
-        <!--<dependency>
+     <!--   <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
             <version>1.2</version>

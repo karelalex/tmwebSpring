@@ -9,6 +9,7 @@ import ru.karelin.tmwebspring.entity.Task;
 import ru.karelin.tmwebspring.repository.ProjectRepository;
 import ru.karelin.tmwebspring.repository.TaskRepository;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -32,11 +33,13 @@ public class ProjectService {
         }
     }
 
-    public List<Project> findAllByUserId(String id) {
-        return projectRepository.findAllByUserId(id);
+    public List<Project> findAllByUserId(String userId) {
+        if( userId==null || userId.isEmpty()) return Collections.emptyList();
+        return projectRepository.findAllByUserId(userId);
     }
 
     public Project findByIdAndUserId(String id, String userId) {
+        if(id==null || userId==null || id.isEmpty() || userId.isEmpty()) return null;
         return projectRepository.findByIdAndUserId(id, userId);
     }
 }

@@ -73,5 +73,5 @@ buildNumber.properties
 # Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
 !/.mvn/wrapper/maven-wrapper.jar
 
-/src/main/webapp/images/
+/resources/images/
 /src/main/resources/hidden.properties

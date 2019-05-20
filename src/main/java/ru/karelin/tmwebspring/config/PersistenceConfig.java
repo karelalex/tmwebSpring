@@ -51,7 +51,7 @@ public class PersistenceConfig {
         properties.put("hibernate.hbm2ddl.auto", dbStrategy);
         properties.put("hibernate.dialect", dialect);
         properties.put("hibernate.dialect.storage_engine", engine);
-        properties.put("hibernate.cache.use_second_level_cache", "true");
+        //properties.put("hibernate.cache.use_second_level_cache", "true");
         properties.put("hibernate.cache.use_query_cache", "true");
         properties.put("hibernate.cache.use_minimal_puts", "true");
         properties.put("hibernate.cache.hazelcast.use_lite_member", "true");
