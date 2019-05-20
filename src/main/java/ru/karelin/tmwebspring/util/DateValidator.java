@@ -13,8 +13,7 @@ import java.util.Date;
 public class DateValidator implements Validator {
     @Override
     public void validate(FacesContext facesContext, UIComponent uiComponent, Object o) throws ValidatorException {
-        UIInput startDateInput = (UIInput) facesContext.getViewRoot().findComponent("projectForm:startDate");
-        System.out.println(startDateInput.getSubmittedValue());
+        UIInput startDateInput = (UIInput) facesContext.getViewRoot().findComponent("itemForm:startDate");
         Date startDate = (Date) startDateInput.getValue();
         Date finnishDate = (Date) o;
         if (startDate.after(finnishDate)) {

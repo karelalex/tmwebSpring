@@ -14,7 +14,7 @@
     </f:metadata>
     <ui:composition template="main-template.xhtml">
         <ui:define name="mainBody">
-            <h:form id="projectForm">
+            <h:form id="itemForm" prependId="false">
                 <p:panelGrid columns="2" id="mainGrid">
                     <p:outputLabel value="Id:"/>
                     <p:outputLabel value="#{projectController.currentProject.id}"/>
@@ -31,7 +31,7 @@
                             <f:validateLength minimum="3">
                             </f:validateLength>
                         </p:inputText>
-                        <P:message for="name" style="color: red" rendered="#{projectController.creating==true}"/>
+                        <p:message for="name" style="color: red" rendered="#{projectController.creating==true}" severity="error" />
                     </h:panelGroup>
                     <p:outputLabel value="Описание:"/>
                     <p:outputLabel value="#{projectController.currentProject.description}"
@@ -61,7 +61,7 @@
                                     id="finishDate" rendered="#{projectController.creating==true}">
                             <f:validator validatorId="DateValidator"/>
                         </p:calendar>
-                        <p:message for="finishDate" style="color: red" rendered="#{projectController.creating==true}"/></h:panelGroup>
+                        <p:message for="finishDate" style="color: red" rendered="#{projectController.creating==true}" /></h:panelGroup>
 
                     <p:outputLabel value="Статус"/>
                     <p:outputLabel value="#{projectController.currentProject.status.displayName}"

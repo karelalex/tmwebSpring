@@ -46,6 +46,11 @@
                             <f:param name="projectId" value="#{projectController.currentProject.id}"/>
                         </p:button>
                         <p:button
+                                value="Просмотреть задачи" outcome="taskList" id="showTaskListButton"
+                                rendered="#{projectController.currentProject!=null}">
+                            <f:param name="projectId" value="#{projectController.currentProject.id}"/>
+                        </p:button>
+                        <p:button
                                 value="Редактировать" outcome="project" id="editButton"
                                 rendered="#{projectController.currentProject!=null}">
                             <f:param name="projectId" value="#{projectController.currentProject.id}"/>

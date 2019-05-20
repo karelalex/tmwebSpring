@@ -23,6 +23,14 @@
             <from-outcome>projectList</from-outcome>
             <to-view-id>/project-list.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>task</from-outcome>
+            <to-view-id>/task.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>taskList</from-outcome>
+            <to-view-id>/task-list.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
 
 </faces-config>

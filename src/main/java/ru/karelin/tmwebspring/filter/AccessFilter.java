@@ -1,5 +1,7 @@
 package ru.karelin.tmwebspring.filter;
 
+import ru.karelin.tmwebspring.util.ForbiddenException;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +24,8 @@ public class AccessFilter implements Filter {
                 ((HttpServletResponse)servletResponse).sendRedirect(((HttpServletRequest) servletRequest).getContextPath()+"/login");
                 return;
             }
-            filterChain.doFilter(servletRequest, servletResponse);
+        filterChain.doFilter(servletRequest, servletResponse);
+
     }
 
     @Override

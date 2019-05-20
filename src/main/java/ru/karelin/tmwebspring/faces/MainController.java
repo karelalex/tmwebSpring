@@ -44,7 +44,6 @@ public class MainController {
 
     public String login() {
         User user = userService.findByLoginAndPassword(login, password);
-        System.out.println(login);
         if (user != null) {
             session.setAttribute("userId", user.getId());
             return "main";

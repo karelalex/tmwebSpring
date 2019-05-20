@@ -5,12 +5,15 @@ import ru.karelin.tmwebspring.entity.User;
 import ru.karelin.tmwebspring.enumeration.Status;
 import ru.karelin.tmwebspring.service.ProjectService;
 import ru.karelin.tmwebspring.service.UserService;
+import ru.karelin.tmwebspring.util.ForbiddenException;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +28,8 @@ public class ProjectController {
 
     private HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 
+    private String userId = (String)session.getAttribute("userId");
+
     private List<Project> projectList;
 
     private Project currentProject;
@@ -34,15 +39,15 @@ public class ProjectController {
     private boolean isCreating = false;
 
     public void initProjectList() {
-        projectList = projectService.findAllByUserId((String) session.getAttribute("userId"));
+        projectList = projectService.findAllByUserId(userId);
     }
 
-    public void initCurrentProject() {
+    public void initCurrentProject() throws IOException {
         if (projectId != null)
-            currentProject = projectService.findByIdAndUserId(projectId, (String) session.getAttribute("userId"));
+            currentProject = projectService.findByIdAndUserId(projectId, userId);
         if (currentProject == null && isCreating) {
-            User user = userService.find((String) session.getAttribute("userId"));
-            if (user == null) throw new IllegalStateException("Вы не вошли в систему");
+            User user = userService.find(userId);
+            if (user == null) ((HttpServletResponse)FacesContext.getCurrentInstance().getExternalContext().getResponse()).sendError(HttpServletResponse.SC_FORBIDDEN, "Вы не залогинены");
             currentProject = new Project();
             currentProject.setUser(user);
             currentProject.setStartingDate(new Date());
@@ -53,7 +58,7 @@ public class ProjectController {
 
     public String removeProject() {
         if (currentProject == null) return "projectList";
-        projectService.remove(currentProject.getId(), (String) session.getAttribute("userId"));
+        projectService.remove(currentProject.getId(), userId);
         initProjectList();
         currentProject=null;
         return "projectList";
