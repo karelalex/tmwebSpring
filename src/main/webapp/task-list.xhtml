@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<f:view>
+    <f:metadata>
+        <f:viewAction action="#{taskController.initTaskList}"/>
+        <f:viewParam name="projectId" value="#{taskController.projectId}" />
+    </f:metadata>
+    <ui:composition template="main-template.xhtml">
+        <ui:define name="mainBody">
+            <h:form id="taskListForm" prependId="false">
+                <p:dataTable id="taskTable" var="task" value="#{taskController.taskList}"
+                             selectionMode="single"
+                             selection="#{taskController.currentTask}" rowKey="#{task.id}">
+                    <p:ajax event="rowSelect" update="taskTable"/>
+                    <p:column headerText="Id">
+                        <h:outputText value="#{task.id}"/>
+                    </p:column>
+                    <p:column headerText="Проект">
+                        <h:outputText value="#{task.project.name}"/>
+                    </p:column>
+                    <p:column headerText="Название">
+                        <h:outputText value="#{task.name}"/>
+                    </p:column>
+                    <p:column headerText="Дата начала">
+                        <h:outputText value="#{task.startingDate}">
+                            <f:convertDateTime pattern="dd-MM-yyyy"/>
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Дата завершения">
+                        <h:outputText value="#{task.finishDate}">
+                            <f:convertDateTime pattern="dd-MM-yyyy"/>
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Статус">
+                        <h:outputText value="#{task.status.displayName}"/>
+                    </p:column>
+                    <f:facet name="footer">
+                        <p:button value="Создать" outcome="task" id="createButton">
+                            <f:param name="create" value="true"/>
+                        </p:button>
+                        <p:button
+                                value="Просмотреть" outcome="task" id="showButton"
+                                rendered="#{taskController.currentTask!=null}">
+                            <f:param name="taskId" value="#{taskController.currentTask.id}"/>
+                        </p:button>
+                        <p:button
+                                value="Редактировать" outcome="task" id="editButton"
+                                rendered="#{taskController.currentTask!=null}">
+                            <f:param name="taskId" value="#{taskController.currentTask.id}"/>
+                            <f:param name="create" value="true" />
+                        </p:button>
+                        <p:commandButton value="Удалить" actionListener="#{taskController.removeTask}"
+                                         update="taskTable" id="removeButton"  rendered="#{taskController.currentTask!=null}">
+                            <p:confirm header="Удаление задачи"
+                                       message="Удалить задачу #{taskController.currentTask.name}?"
+                                       icon="fa fa-exclamation-triangle"/>
+                        </p:commandButton>
+
+                    </f:facet>
+                </p:dataTable>
+
+            </h:form>
+        </ui:define>
+        <ui:param name="pageName" value="Список проектов"/>
+    </ui:composition>
+</f:view>
+</html>

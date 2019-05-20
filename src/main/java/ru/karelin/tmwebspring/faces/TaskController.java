@@ -7,7 +7,6 @@ import ru.karelin.tmwebspring.enumeration.Status;
 import ru.karelin.tmwebspring.service.ProjectService;
 import ru.karelin.tmwebspring.service.TaskService;
 import ru.karelin.tmwebspring.service.UserService;
-import ru.karelin.tmwebspring.util.ForbiddenException;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
