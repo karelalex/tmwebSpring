@@ -1,7 +1,5 @@
 package ru.karelin.tmwebspring.filter;
 
-import ru.karelin.tmwebspring.util.ForbiddenException;
-
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
