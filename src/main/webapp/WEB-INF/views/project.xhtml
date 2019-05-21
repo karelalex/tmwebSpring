@@ -5,12 +5,12 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui" xmlns:P="http://java.sun.com/jsf/html">
+      xmlns:p="http://primefaces.org/ui" >
 <f:view>
-    <f:metadata>
-        <f:viewParam name="projectId" value="#{projectController.projectId}"/>
+   <f:metadata>
+        <!--<f:viewParam name="projectId" value="#{projectController.projectId}"/>
         <f:viewAction action="#{projectController.initCurrentProject}"/>
-        <f:viewParam name="create" value="#{projectController.creating}"/>
+        <f:viewParam name="create" value="#{projectController.creating}"/>-->
     </f:metadata>
     <ui:composition template="main-template.xhtml">
         <ui:define name="mainBody">
@@ -73,8 +73,11 @@
                     </p:selectOneMenu>
                 </p:panelGrid>
                 <p:spacer height="6"/>
+                <p:button value="Посмотреть задачи" outcome="taskList" rendered="#{projectController.creating==false}">
+                    <f:param value="#{projectController.currentProject.id}" name="projectId"/>
+                </p:button>
                 <p:commandButton value="Редактировать" action="#{projectController.setCreating(true)}"
-                                 update="projectForm" rendered="#{projectController.creating==false}"/>
+                                 update="itemForm" rendered="#{projectController.creating==false}"/>
                 <p:commandButton value="Удалить" action="#{projectController.removeProject}"
                                  rendered="#{projectController.creating==false}">
                     <p:confirm header="Удаление проекта"
@@ -82,7 +85,7 @@
                                icon="fa fa-exclamation-triangle"/>
                 </p:commandButton>
                 <p:commandButton value="Сохранить" rendered="#{projectController.creating==true}"
-                                 action="#{projectController.saveProject}" update="projectForm"/>
+                                 action="#{projectController.saveProject}" update="itemForm"/>
 
             </h:form>
         </ui:define>

@@ -42,9 +42,11 @@ public class ProjectController {
         projectList = projectService.findAllByUserId(userId);
     }
 
-    public void initCurrentProject() throws IOException {
-        if (projectId != null)
+    public String initCurrentProject() throws IOException {
+        if (projectId != null) {
             currentProject = projectService.findByIdAndUserId(projectId, userId);
+            if (currentProject==null) return "pretty:projectList";
+        }
         if (currentProject == null && isCreating) {
             User user = userService.find(userId);
             if (user == null) ((HttpServletResponse)FacesContext.getCurrentInstance().getExternalContext().getResponse()).sendError(HttpServletResponse.SC_FORBIDDEN, "Вы не залогинены");
@@ -54,6 +56,7 @@ public class ProjectController {
             currentProject.setFinishDate(new Date());
             currentProject.setStatus(Status.PLANNED);
         }
+        return null;
     }
 
     public String removeProject() {

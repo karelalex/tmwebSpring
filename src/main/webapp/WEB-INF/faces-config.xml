@@ -13,27 +13,27 @@
         <from-view-id>/*</from-view-id>
         <navigation-case>
             <from-outcome>main</from-outcome>
-            <to-view-id>/index.xhtml</to-view-id>
+            <to-view-id>/WEB-INF/views/index.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>project</from-outcome>
-            <to-view-id>/project.xhtml</to-view-id>
+            <to-view-id>/WEB-INF/views/project.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>projectList</from-outcome>
-            <to-view-id>/project-list.xhtml</to-view-id>
+            <to-view-id>/WEB-INF/views/project-list.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>task</from-outcome>
-            <to-view-id>/task.xhtml</to-view-id>
+            <to-view-id>/WEB-INF/views/task.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>taskList</from-outcome>
-            <to-view-id>/task-list.xhtml</to-view-id>
+            <to-view-id>/WEB-INF/views/task-list.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>registration</from-outcome>
-            <to-view-id>/reg-form.xhtml</to-view-id>
+            <to-view-id>/WEB-INF/views/reg-form.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 

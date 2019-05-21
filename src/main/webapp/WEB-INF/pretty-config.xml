@@ -1,0 +1,60 @@
+<pretty-config xmlns="http://ocpsoft.org/schema/rewrite-config-prettyfaces"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="http://ocpsoft.org/schema/rewrite-config-prettyfaces
+                      http://ocpsoft.org/xml/ns/prettyfaces/rewrite-config-prettyfaces.xsd">
+
+    <url-mapping id="main">
+        <pattern value="/"/>
+        <view-id value="/WEB-INF/views/index.xhtml"/>
+    </url-mapping>
+    <url-mapping id="projectList">
+        <pattern value="/project/list"/>
+        <view-id value="/WEB-INF/views/project-list.xhtml"/>
+        <action>#{projectController.initProjectList}</action>
+    </url-mapping>
+
+    <url-mapping id="projectCreate">
+        <pattern value="/project/create"/>
+        <query-param name="create">#{projectController.creating}</query-param>
+        <view-id value="/WEB-INF/views/project.xhtml"/>
+        <action>#{projectController.initCurrentProject}</action>
+    </url-mapping>
+    <url-mapping id="project">
+        <pattern value="/project/#{projectId : projectController.projectId}"/>
+        <query-param name="create">#{projectController.creating}</query-param>
+        <view-id value="/WEB-INF/views/project.xhtml"/>
+        <action>#{projectController.initCurrentProject}</action>
+    </url-mapping>
+
+
+    <url-mapping id="taskList">
+        <pattern value="/task/list"/>
+        <view-id value="/WEB-INF/views/task-list.xhtml"/>
+        <action>#{taskController.initTaskList}</action>
+    </url-mapping>
+    <url-mapping id="taskListProject">
+        <pattern value="/task/list/#{projectId : taskController.projectId}"/>
+        <view-id value="/WEB-INF/views/task-list.xhtml"/>
+        <action>#{taskController.initTaskList}</action>
+    </url-mapping>
+
+    <url-mapping id="taskCreate">
+        <pattern value="/task/create" />
+        <query-param name="create">#{taskController.creating}</query-param>
+        <view-id value="/WEB-INF/views/task.xhtml" />
+        <action>#{taskController.initCurrentTask}</action>
+    </url-mapping>
+
+    <url-mapping id="task">
+    <pattern value="/task/#{taskId : taskController.taskId}" />
+    <query-param name="create">#{taskController.creating}</query-param>
+    <view-id value="/WEB-INF/views/task.xhtml" />
+    <action>#{taskController.initCurrentTask}</action>
+</url-mapping>
+
+    <url-mapping id="registration">
+        <pattern value="/reg" />
+        <view-id value="/WEB-INF/views/reg-form.xhtml"/>
+    </url-mapping>
+
+</pretty-config>

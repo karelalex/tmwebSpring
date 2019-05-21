@@ -8,8 +8,7 @@
       xmlns:p="http://primefaces.org/ui">
 <f:view>
     <f:metadata>
-        <f:viewAction action="#{taskController.initTaskList}"/>
-        <f:viewParam name="projectId" value="#{taskController.projectId}" />
+
     </f:metadata>
     <ui:composition template="main-template.xhtml">
         <ui:define name="mainBody">
@@ -67,7 +66,7 @@
 
             </h:form>
         </ui:define>
-        <ui:param name="pageName" value="Список проектов"/>
+        <ui:param name="pageName" value="Список задач"/>
     </ui:composition>
 </f:view>
 </html>
