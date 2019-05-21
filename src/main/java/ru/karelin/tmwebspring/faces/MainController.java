@@ -5,6 +5,7 @@ import ru.karelin.tmwebspring.service.UserService;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -21,6 +22,8 @@ public class MainController {
     private HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
     private String login;
     private String password;
+
+    private String userName;
 
     public void setUserService(UserService userService) {
         this.userService = userService;
@@ -45,6 +48,7 @@ public class MainController {
     public String login() {
         User user = userService.findByLoginAndPassword(login, password);
         if (user != null) {
+            userName = user.getUserName();
             session.setAttribute("userId", user.getId());
             return "main";
         } else {
@@ -58,11 +62,12 @@ public class MainController {
     }
 
     public String getUserName() {
-        String userId = (String) session.getAttribute("userId");
-        if (userId != null) {
-            User user = userService.find(userId);
-            return user.getUserName();
-        }
-        return null;
+        User user = userService.find((String)session.getAttribute("userId"));
+        if(user==null) return null;
+        return user.getUserName();
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

@@ -1,4 +1,4 @@
-package ru.karelin.tmwebspring.util;
+package ru.karelin.tmwebspring.validator;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;

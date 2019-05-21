@@ -32,10 +32,7 @@ public class ProjectConverter implements Converter {
 
     @Override
     public Object getAsObject(FacesContext facesContext, UIComponent uiComponent, String s) {
-
-        Project project = projectService.findByIdAndUserId(s, (String) session.getAttribute("userId"));
-        System.out.println(project.getName());
-        return project;
+        return projectService.findByIdAndUserId(s, (String) session.getAttribute("userId"));
     }
 
     @Override
