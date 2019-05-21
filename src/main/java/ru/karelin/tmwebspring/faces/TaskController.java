@@ -57,7 +57,7 @@ public class TaskController {
         if (taskId!=null)
             currentTask = taskService.findByIdAndUserId(taskId, (String) session.getAttribute("userId"));
 
-        if (currentTask == null && isCreating) {
+        if (currentTask == null) {
             User user = userService.find((String) session.getAttribute("userId"));
             if (user == null) ((HttpServletResponse)FacesContext.getCurrentInstance().getExternalContext().getResponse()).sendError(HttpServletResponse.SC_FORBIDDEN, "Вы не залогинены");
             currentTask = new Task();
@@ -67,7 +67,7 @@ public class TaskController {
             currentTask.setStatus(Status.PLANNED);
             if (projectId != null)
                 currentTask.setProject(projectService.findByIdAndUserId(projectId, (String) session.getAttribute("userId")));
-
+            isCreating=true;
         }
     }
 

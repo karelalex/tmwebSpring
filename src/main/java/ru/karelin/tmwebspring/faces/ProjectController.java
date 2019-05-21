@@ -46,7 +46,7 @@ public class ProjectController {
             currentProject = projectService.findByIdAndUserId(projectId, userId);
             if (currentProject==null) return "pretty:projectList";
         }
-        if (currentProject == null && isCreating) {
+        if (currentProject == null) {
             User user = userService.find(userId);
             if (user == null) ((HttpServletResponse)FacesContext.getCurrentInstance().getExternalContext().getResponse()).sendError(HttpServletResponse.SC_FORBIDDEN, "Вы не залогинены");
             currentProject = new Project();
@@ -54,6 +54,7 @@ public class ProjectController {
             currentProject.setStartingDate(new Date());
             currentProject.setFinishDate(new Date());
             currentProject.setStatus(Status.PLANNED);
+            isCreating = true;
         }
         return null;
     }

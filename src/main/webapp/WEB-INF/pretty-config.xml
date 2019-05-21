@@ -14,7 +14,7 @@
     </url-mapping>
 
     <url-mapping id="projectCreate">
-        <pattern value="/project/create"/>
+        <pattern value="/project"/>
         <query-param name="create">#{projectController.creating}</query-param>
         <view-id value="/WEB-INF/views/project.xhtml"/>
         <action>#{projectController.initCurrentProject}</action>
@@ -39,21 +39,21 @@
     </url-mapping>
 
     <url-mapping id="taskCreate">
-        <pattern value="/task/create" />
+        <pattern value="/task"/>
         <query-param name="create">#{taskController.creating}</query-param>
-        <view-id value="/WEB-INF/views/task.xhtml" />
+        <view-id value="/WEB-INF/views/task.xhtml"/>
         <action>#{taskController.initCurrentTask}</action>
     </url-mapping>
 
     <url-mapping id="task">
-    <pattern value="/task/#{taskId : taskController.taskId}" />
-    <query-param name="create">#{taskController.creating}</query-param>
-    <view-id value="/WEB-INF/views/task.xhtml" />
-    <action>#{taskController.initCurrentTask}</action>
-</url-mapping>
+        <pattern value="/task/#{taskId : taskController.taskId}"/>
+        <query-param name="create">#{taskController.creating}</query-param>
+        <view-id value="/WEB-INF/views/task.xhtml"/>
+        <action>#{taskController.initCurrentTask}</action>
+    </url-mapping>
 
     <url-mapping id="registration">
-        <pattern value="/reg" />
+        <pattern value="/reg"/>
         <view-id value="/WEB-INF/views/reg-form.xhtml"/>
     </url-mapping>
 
