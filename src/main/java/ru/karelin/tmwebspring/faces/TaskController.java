@@ -45,7 +45,6 @@ public class TaskController {
     private boolean isCreating = false;
 
     public void initTaskList() {
-        System.out.println(projectId);
         if (projectId != null && !projectId.isEmpty()) {
             taskList = taskService.findAllByUserIdAndProjectId((String) session.getAttribute("userId"), projectId);
         } else {
