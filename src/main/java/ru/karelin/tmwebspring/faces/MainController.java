@@ -19,7 +19,7 @@ public class MainController {
     @ManagedProperty(value = "#{userService}")
     private UserService userService;
 
-    private HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+    private HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
     private String login;
     private String password;
 

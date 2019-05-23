@@ -22,5 +22,5 @@
 
 
    <jaxws:endpoint id="loginEndPoint" implementor="ru.karelin.tmwebspring.soap.LoginEndpoint" address="/login" />
-
+    <jaxws:endpoint id="projectEndPoint" implementor="ru.karelin.tmwebspring.soap.ProjectEndpoint" address="/project" />
 </beans>
