@@ -3,17 +3,18 @@ package ru.karelin.tmwebspring.repository;
 import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import ru.karelin.tmwebspring.dto.ProjectDto;
+import ru.karelin.tmwebspring.dto.TaskDto;
+import ru.karelin.tmwebspring.entity.Task;
 
 import javax.persistence.QueryHint;
 import java.util.List;
 
 @Repository
-public interface ProjectDtoRepository extends CrudRepository<ProjectDto, String> {
+public interface TaskDtoRepository extends CrudRepository<TaskDto, String> {
+    List<TaskDto> findAllByUserIdAndProjectId(String userId, String projectId);
 
     @QueryHints(@QueryHint(name = org.hibernate.jpa.QueryHints.HINT_CACHEABLE, value = "true"))
-    ProjectDto findByIdAndUserId(String id, String userId);
+    TaskDto findByIdAndUserId(String id, String userId);
 
-    @QueryHints(@QueryHint(name = org.hibernate.jpa.QueryHints.HINT_CACHEABLE, value = "true"))
-    List<ProjectDto> findAllByUserId(String id);
+    List<TaskDto> findAllByUserId(String userId);
 }

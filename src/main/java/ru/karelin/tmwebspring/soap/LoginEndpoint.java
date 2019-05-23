@@ -20,7 +20,7 @@ public class LoginEndpoint {
     private UserService userService;
 
     @WebMethod
-    public boolean singIn(
+    public String singIn(
             @WebParam(name = "login") String login,
             @WebParam(name = "password") String password
     ) {
@@ -30,8 +30,8 @@ public class LoginEndpoint {
             HttpServletRequest request = (HttpServletRequest) message.get(AbstractHTTPDestination.HTTP_REQUEST);
             HttpSession session = request.getSession(true);
             session.setAttribute("userId", user.getId());
-            return true;
-        } else return false;
+            return user.getId();
+        } else return null;
     }
 
 }

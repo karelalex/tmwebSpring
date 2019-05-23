@@ -21,27 +21,26 @@ public class ProjectEndpoint {
     ProjectDtoService projectDtoService;
 
     @WebMethod
-    public List<ProjectDto> getProjectList(){
+    public List<ProjectDto> getProjectList() {
         return projectDtoService.findAllByUserId(getCurrentUserId());
     }
 
     @WebMethod
     public ProjectDto getProjectById(
-            @WebParam(name = "projectId") String id){
+            @WebParam(name = "projectId") String id) {
         return projectDtoService.findByIdAndUserId(id, getCurrentUserId());
     }
 
     @WebMethod
     public void removeProjectById(
-            @WebParam(name = "projectId") String id){
+            @WebParam(name = "projectId") String id) {
         projectDtoService.remove(id, getCurrentUserId());
     }
 
     @WebMethod
     public void updateProject(
-            @WebParam(name="project") ProjectDto project
-    ){
-        project.setUserId(getCurrentUserId());
+            @WebParam(name = "project") ProjectDto project
+    ) {
         projectDtoService.save(project);
     }
 
@@ -50,7 +49,7 @@ public class ProjectEndpoint {
         Message message = PhaseInterceptorChain.getCurrentMessage();
         HttpServletRequest request = (HttpServletRequest) message.get(AbstractHTTPDestination.HTTP_REQUEST);
         HttpSession session = request.getSession(true);
-        return (String)session.getAttribute("userId");
+        return (String) session.getAttribute("userId");
     }
 
 }
