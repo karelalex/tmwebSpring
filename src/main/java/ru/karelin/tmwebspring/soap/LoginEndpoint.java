@@ -34,4 +34,12 @@ public class LoginEndpoint {
         } else return null;
     }
 
+    @WebMethod
+    public void singOut() {
+        Message message = PhaseInterceptorChain.getCurrentMessage();
+        HttpServletRequest request = (HttpServletRequest) message.get(AbstractHTTPDestination.HTTP_REQUEST);
+        HttpSession session = request.getSession(true);
+        session.invalidate();
+    }
+
 }
