@@ -16,19 +16,14 @@ public class TaskRestController {
     @Autowired
     TaskDtoService taskDtoService;
 
-
-    @GetMapping(value = "/task", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<TaskDto> getTaskList(HttpSession session){
-        return taskDtoService.findAllByUserId((String)session.getAttribute("userId"));
-    }
-
-    @GetMapping(value = "/task/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+     @GetMapping(value = "/task/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public TaskDto getTask(@PathVariable("id") String taskId,  HttpSession session){
         return taskDtoService.findByIdAndUserId(taskId, (String)session.getAttribute("userId"));
     }
 
     @GetMapping(value = "/task", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<TaskDto> getTaskList(@RequestParam("projectId") String projectId, HttpSession session){
+    public List<TaskDto> getTaskList(@RequestParam(value = "projectId", required = false, defaultValue = "") String projectId, HttpSession session){
+        if(projectId.isEmpty()) return taskDtoService.findAllByUserId((String)session.getAttribute("userId"));
         return taskDtoService.findAllByUserIdAndProjectId(((String)session.getAttribute("userId")), projectId);
     }
 
