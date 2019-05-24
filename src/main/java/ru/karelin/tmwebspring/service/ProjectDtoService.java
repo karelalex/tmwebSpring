@@ -28,11 +28,15 @@ public class ProjectDtoService {
         projectDtoRepository.save(project);
     }
 
-    public void remove(@Nullable String projectId, String userId) {
-        if (projectId == null || projectId.isEmpty()) return;
+    public boolean remove(@Nullable String projectId, String userId) {
+        if (projectId == null || projectId.isEmpty()) return false;
         Project project = projectRepository.findByIdAndUserId(projectId, userId);
-        if (project != null) {
+        if (project == null){
+            return false;
+        }
+        else {
             projectRepository.delete(project);
+            return true;
         }
     }
 

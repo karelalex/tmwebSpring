@@ -37,8 +37,10 @@ public class TaskDtoService {
         taskDtoRepository.save(task);
     }
 
-    public void remove(String id, String userId) {
+    public boolean remove(String id, String userId) {
         Task task = taskRepository.findByIdAndUserId(id, userId);
-        if (task != null) taskRepository.delete(task);
+        if (task == null)return false;
+        else taskRepository.delete(task);
+        return true;
     }
 }

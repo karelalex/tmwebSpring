@@ -16,7 +16,7 @@ public class WebAppInit implements WebApplicationInitializer {
        ctx.setServletContext(servletContext);
        final DispatcherServlet dispatcherServlet = new DispatcherServlet(ctx);
         ServletRegistration.Dynamic dynamic = servletContext.addServlet("dispatcher", dispatcherServlet);
-        dynamic.addMapping("/spring/*");
+        dynamic.addMapping("/rest/*");
         dynamic.setLoadOnStartup(1);
     }
 }
