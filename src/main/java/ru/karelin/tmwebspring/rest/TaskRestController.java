@@ -11,24 +11,27 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
-public class TaskRestController {
+public class TaskRestController implements TaskRestControllerI {
 
     @Autowired
     TaskDtoService taskDtoService;
 
+     @Override
      @GetMapping(value = "/task/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public TaskDto getTask(@PathVariable("id") String taskId,  HttpSession session){
+    public TaskDto getTask(@PathVariable("id") String taskId, HttpSession session){
         return taskDtoService.findByIdAndUserId(taskId, (String)session.getAttribute("userId"));
     }
 
+    @Override
     @GetMapping(value = "/task", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<TaskDto> getTaskList(@RequestParam(value = "projectId", required = false, defaultValue = "") String projectId, HttpSession session){
         if(projectId.isEmpty()) return taskDtoService.findAllByUserId((String)session.getAttribute("userId"));
         return taskDtoService.findAllByUserIdAndProjectId(((String)session.getAttribute("userId")), projectId);
     }
 
+    @Override
     @PostMapping(value = "/task", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Result createTask (@RequestBody TaskDto task, HttpSession session)
+    public Result createTask(@RequestBody TaskDto task, HttpSession session)
     {
         String taskUserId = task.getUserId();
         if(taskUserId==null || taskUserId.isEmpty()){
@@ -37,14 +40,16 @@ public class TaskRestController {
         taskDtoService.save(task);
         return new Result();
     }
+    @Override
     @PutMapping(value = "/task", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Result editTask (@RequestBody TaskDto task, HttpSession session)
+    public Result editTask(@RequestBody TaskDto task, HttpSession session)
     {
         taskDtoService.save(task);
         return new Result();
     }
 
-    @DeleteMapping(value = "task/{id}")
+    @Override
+    @DeleteMapping(value = "/task/{id}")
     public Result removeTask(@PathVariable("id") String taskId, HttpSession session)
     {
         return new Result(taskDtoService.remove(taskId, (String)session.getAttribute("userId")));

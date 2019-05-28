@@ -13,11 +13,12 @@ import ru.karelin.tmwebspring.service.UserService;
 import javax.servlet.http.HttpSession;
 
 @RestController
-public class LoginRestController {
+public class LoginRestController implements LoginRestControllerI {
 
     @Autowired
     UserService userService;
 
+    @Override
     @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
     public Result login(@RequestParam(name = "login") String login,
                         @RequestParam(name = "password") String password, HttpSession session) {
@@ -33,6 +34,7 @@ public class LoginRestController {
         return "Welcome to rest controller";
     }
 
+    @Override
     @GetMapping(value = "/logout", produces = MediaType.APPLICATION_JSON_VALUE)
     public Result logout(HttpSession session){
         session.invalidate();

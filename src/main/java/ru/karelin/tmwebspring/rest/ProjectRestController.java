@@ -11,39 +11,49 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
-public class ProjectRestController {
+public class ProjectRestController implements ProjectRestControllerI {
 
     @Autowired
     ProjectDtoService projectDtoService;
 
 
+    @Override
     @GetMapping(value = "/project", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ProjectDto> getProjectList(HttpSession session){
         return projectDtoService.findAllByUserId((String)session.getAttribute("userId"));
     }
 
+    @Override
     @GetMapping(value = "/project/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ProjectDto getProject(@PathVariable("id") String projectId,  HttpSession session){
+    public ProjectDto getProject(@PathVariable("id") String projectId, HttpSession session){
         return projectDtoService.findByIdAndUserId(projectId, (String)session.getAttribute("userId"));
     }
 
+    @Override
     @PostMapping(value = "/project", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Result createProject (@RequestBody ProjectDto project, HttpSession session)
+    public Result createProject(@RequestBody ProjectDto project, HttpSession session)
     {
-        String projectUserId = project.getUserId();
-        if(projectUserId==null || projectUserId.isEmpty()){
-            project.setUserId((String)session.getAttribute("userId"));
+        try {
+            String projectUserId = project.getUserId();
+            if (projectUserId == null || projectUserId.isEmpty()) {
+                project.setUserId((String) session.getAttribute("userId"));
+            }
+            projectDtoService.save(project);
         }
-        projectDtoService.save(project);
+        catch (Exception e){
+            return new Result(false, e.getMessage());
+        }
         return new Result();
     }
+    @Override
     @PutMapping(value = "/project", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Result editProject (@RequestBody ProjectDto project, HttpSession session)
+    public Result editProject(@RequestBody ProjectDto project, HttpSession session)
     {
         projectDtoService.save(project);
         return new Result();
     }
 
+    @Override
     @DeleteMapping(value = "project/{id}")
     public Result removeProject(@PathVariable("id") String projectId, HttpSession session)
     {

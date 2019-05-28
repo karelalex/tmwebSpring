@@ -31,22 +31,21 @@ public class ProjectDtoService {
     public boolean remove(@Nullable String projectId, String userId) {
         if (projectId == null || projectId.isEmpty()) return false;
         Project project = projectRepository.findByIdAndUserId(projectId, userId);
-        if (project == null){
+        if (project == null) {
             return false;
-        }
-        else {
+        } else {
             projectRepository.delete(project);
             return true;
         }
     }
 
     public List<ProjectDto> findAllByUserId(String userId) {
-        if( userId==null || userId.isEmpty()) return Collections.emptyList();
+        if (userId == null || userId.isEmpty()) return Collections.emptyList();
         return projectDtoRepository.findAllByUserId(userId);
     }
 
     public ProjectDto findByIdAndUserId(String id, String userId) {
-        if(id==null || userId==null || id.isEmpty() || userId.isEmpty()) return null;
+        if (id == null || userId == null || id.isEmpty() || userId.isEmpty()) return null;
         return projectDtoRepository.findByIdAndUserId(id, userId);
     }
 }
