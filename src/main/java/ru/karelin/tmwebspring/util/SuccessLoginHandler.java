@@ -22,11 +22,9 @@ public class SuccessLoginHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
         final String login = authentication.getName();
-        System.out.println(login);
         @Nullable final User user = userService.findByLogin(login);
-        if (user!=null){
+        if (user != null) {
             httpServletRequest.getSession(true).setAttribute("userId", user.getId());
-            System.out.println("Установил!!!");
         }
         httpServletResponse.sendRedirect(httpServletRequest.getHeader("referer"));
     }

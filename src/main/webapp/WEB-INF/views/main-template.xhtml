@@ -17,12 +17,14 @@
         <p:menubar id="mainBar">
             <p:menuitem value="Главная" outcome="main" icon="fa fa-home"/>
 
+            <sec:authorize url="/project/*">
                 <p:submenu icon="fa fa-navicon" label="Проекты" rendered="#{sec:isAllowed('/project/*', 'GET')}">
                     <p:menuitem icon="fa fa-plus" value="Создать" outcome="project">
                         <f:param value="true" name="create"/>
                     </p:menuitem>
                     <p:menuitem value="Список" outcome="projectList" icon="fa fa-list"/>
                 </p:submenu>
+            </sec:authorize>
 
             <p:submenu icon="fa fa-tasks" label="Задачи" rendered="#{sec:isAllowed('/task/*', 'GET')}">
                 <p:menuitem icon="fa fa-plus" value="Создать" outcome="task">
@@ -30,32 +32,36 @@
                 </p:menuitem>
                 <p:menuitem value="Список" outcome="taskList" icon="fa fa-list"/>
             </p:submenu>
-            <p:menuitem value="Регистрация" outcome="registration" icon="fa fa-hand-o-up"/>
+
+            <sec:authorize access="!isAuthenticated()">
+                <p:menuitem value="Регистрация" outcome="registration" icon="fa fa-hand-o-up"/>
+            </sec:authorize>
+
             <f:facet name="options">
-                <form id="loginForm" action="#{request.contextPath}/singIn" method="post" enctype="application/x-www-form-urlencoded">
-                    <ui:fragment>
+                <sec:authorize access="!isAuthenticated()">
+                    <form id="loginForm" action="#{request.contextPath}/singIn" method="post"
+                          enctype="application/x-www-form-urlencoded">
                         <p:outputLabel for="username" value="Логин"/><p:spacer width="5"/>
-                        <p:inputText id="username" placeholder="Логин" >
+                        <p:inputText id="username" placeholder="Логин">
                         </p:inputText>
                         <p:spacer width="10"/>
                         <p:outputLabel for="password" value="Пароль"/><p:spacer width="5"/>
-                        <p:password id="password" placeholder="Пароль" >
+                        <p:password id="password" placeholder="Пароль">
                         </p:password>
-                 <button type="submit" >Войти</button>
+                        <button type="submit">Войти</button>
+                    </form>
+                </sec:authorize>
 
-                    </ui:fragment>
-                    <sec:authorize access="isAuthenticated()">
-                        <h:outputText value="Привет #{mainController.userName}"/>  <p:spacer width="10"/>
-                        <p:button value="Выйти"  href="#{request.contextPath}/singOut" ajax="false"/>
-                    </sec:authorize>
-                </form>
+                <sec:authorize access="isAuthenticated()">
+                    <h:outputText value="Привет #{mainController.userName}"/> <p:spacer width="10"/>
+                    <p:button value="Выйти" href="#{request.contextPath}/singOut" ajax="false"/>
+                </sec:authorize>
+
             </f:facet>
         </p:menubar>
         <p:panel id="basic" header="#{pageName}" footer="&copy; Все права принадлежат создателям сайта"
                  style="margin-bottom:20px">
             <ui:insert name="mainBody">
-
-
             </ui:insert>
         </p:panel>
         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

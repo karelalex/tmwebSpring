@@ -2,17 +2,24 @@ package ru.karelin.tmwebspring.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import ru.karelin.tmwebspring.service.UserService;
 import ru.karelin.tmwebspring.util.SuccessLoginHandler;
 
+
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(jsr250Enabled = true, securedEnabled = true, prePostEnabled = true)
+@Configuration
+@Order(1)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -20,6 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     SuccessLoginHandler successLoginHandler;
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -32,8 +40,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.formLogin().loginProcessingUrl("/singIn").successHandler(successLoginHandler).permitAll();
         // logout
         http.logout().logoutUrl("/singOut").logoutSuccessUrl("/");
+
         // not needed as JSF 2.2 is implicitly protected against CSRF
         http.csrf().disable();
+    }
+    @Override
+    public   void configure(WebSecurity web){
+        web.ignoring().antMatchers("/rest/*", "/soap/*");
     }
 
     @Bean
@@ -42,11 +55,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
-        auth.setUserDetailsService(userService);
-        auth.setPasswordEncoder(passwordEncoder());
-        return auth;
+    public AuthenticationManager customAuthenticationManager() throws Exception {
+        return authenticationManager();
+    }
+
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth)
+            throws Exception {
+        auth.userDetailsService(userService)
+                .passwordEncoder(passwordEncoder());
     }
 }
 

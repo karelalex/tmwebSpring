@@ -24,6 +24,7 @@ public class LoginEndpoint {
             @WebParam(name = "login") String login,
             @WebParam(name = "password") String password
     ) {
+
         User user = userService.findByLoginAndPassword(login, password);
         if (user != null) {
             Message message = PhaseInterceptorChain.getCurrentMessage();
