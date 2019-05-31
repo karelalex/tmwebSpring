@@ -5,21 +5,20 @@ import ru.karelin.tmwebspring.service.UserService;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
-import java.util.Random;
 
 
 @ManagedBean
 @ViewScoped
 public class MainController {
 
-    @ManagedProperty(value = "#{userService}")
+    @ManagedProperty(value = "#{userServiceImpl}")
     private UserService userService;
 
     private HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+
     private String login;
     private String password;
 
@@ -45,26 +44,13 @@ public class MainController {
         this.password = password;
     }
 
-    public String login() {
-        User user = userService.findByLoginAndPassword(login, password);
-        if (user != null) {
-            userName = user.getUserName();
-            session.setAttribute("userId", user.getId());
-            return "main";
-        } else {
-            return "main";
-        }
-    }
-
-    public String logout() {
-        session.invalidate();
-        return "main";
-    }
-
     public String getUserName() {
-        User user = userService.find((String)session.getAttribute("userId"));
-        if(user==null) return null;
-        return user.getUserName();
+        if (this.userName == null || this.userName.isEmpty()) {
+            User user = userService.find((String) session.getAttribute("userId"));
+            if (user != null)
+                this.userName = user.getUserName();
+        }
+        return this.userName;
     }
 
     public void setUserName(String userName) {

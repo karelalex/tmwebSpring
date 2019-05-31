@@ -4,57 +4,63 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:sec="http://www.springframework.org/security/tags">
 
 
 <ui:composition>
     <h:head>
     </h:head>
     <h:body>
-        <ui:param name="userName" value="#{mainController.userName}" />
+        <ui:param name="userName" value="#{mainController.userName}"/>
         <p:menubar id="mainBar">
             <p:menuitem value="Главная" outcome="main" icon="fa fa-home"/>
-            <p:submenu icon="fa fa-navicon" label="Проекты" rendered="#{userName!=null}" >
-                <p:menuitem icon="fa fa-plus" value="Создать" outcome="project">
-                    <f:param value="true" name="create"/>
-                </p:menuitem>
-                <p:menuitem value="Список" outcome="projectList" icon="fa fa-list" />
-            </p:submenu>
-            <p:submenu icon="fa fa-tasks" label="Задачи" rendered="#{userName!=null}" >
+
+                <p:submenu icon="fa fa-navicon" label="Проекты" rendered="#{sec:isAllowed('/project/*', 'GET')}">
+                    <p:menuitem icon="fa fa-plus" value="Создать" outcome="project">
+                        <f:param value="true" name="create"/>
+                    </p:menuitem>
+                    <p:menuitem value="Список" outcome="projectList" icon="fa fa-list"/>
+                </p:submenu>
+
+            <p:submenu icon="fa fa-tasks" label="Задачи" rendered="#{sec:isAllowed('/task/*', 'GET')}">
                 <p:menuitem icon="fa fa-plus" value="Создать" outcome="task">
                     <f:param value="true" name="create"/>
                 </p:menuitem>
-                <p:menuitem value="Список" outcome="taskList" icon="fa fa-list" />
+                <p:menuitem value="Список" outcome="taskList" icon="fa fa-list"/>
             </p:submenu>
-            <p:menuitem value="Регистрация" outcome="registration" icon="fa fa-hand-o-up" rendered="#{userName==null}"/>
+            <p:menuitem value="Регистрация" outcome="registration" icon="fa fa-hand-o-up"/>
             <f:facet name="options">
-                <h:form id="loginForm">
-                    <ui:fragment rendered="#{userName==null}">
-                        <p:outputLabel for="login" value="Логин"/><p:spacer width="5" />
-                        <p:inputText id="login" value="#{mainController.login}" placeholder="Логин" label="Логин">
+                <form id="loginForm" action="#{request.contextPath}/singIn" method="post" enctype="application/x-www-form-urlencoded">
+                    <ui:fragment>
+                        <p:outputLabel for="username" value="Логин"/><p:spacer width="5"/>
+                        <p:inputText id="username" placeholder="Логин" >
                         </p:inputText>
-                        <p:spacer width="10" />
-                        <p:outputLabel for="pass" value="Пароль"/><p:spacer width="5" />
-                        <p:password id="pass" value="#{mainController.password}" placeholder="Пароль" label="Логин">
+                        <p:spacer width="10"/>
+                        <p:outputLabel for="password" value="Пароль"/><p:spacer width="5"/>
+                        <p:password id="password" placeholder="Пароль" >
                         </p:password>
-                        <p:commandButton value="Войти" actionListener="#{mainController.login}" update="mainBar"/>
+                 <button type="submit" >Войти</button>
+
                     </ui:fragment>
-                    <ui:fragment rendered="#{userName!=null}">
-                        <h:outputText value="Привет #{userName}"/> <p:spacer width="10" />
-                        <p:commandButton value="Выйти" action="#{mainController.logout}" ajax="false"/>
-                    </ui:fragment>
-                </h:form>
+                    <sec:authorize access="isAuthenticated()">
+                        <h:outputText value="Привет #{mainController.userName}"/>  <p:spacer width="10"/>
+                        <p:button value="Выйти"  href="#{request.contextPath}/singOut" ajax="false"/>
+                    </sec:authorize>
+                </form>
             </f:facet>
         </p:menubar>
-        <p:panel id="basic" header="#{pageName}" footer="&copy; Все права принадлежат создателям сайта" style="margin-bottom:20px">
+        <p:panel id="basic" header="#{pageName}" footer="&copy; Все права принадлежат создателям сайта"
+                 style="margin-bottom:20px">
             <ui:insert name="mainBody">
 
 
             </ui:insert>
         </p:panel>
         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-            <p:commandButton value="Да" type="button" styleClass="ui-confirmdialog-yes" icon="fa fa-check-circle" />
-            <p:commandButton value="Нет" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-times-circle" />
+            <p:commandButton value="Да" type="button" styleClass="ui-confirmdialog-yes" icon="fa fa-check-circle"/>
+            <p:commandButton value="Нет" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-times-circle"/>
         </p:confirmDialog>
     </h:body>
 </ui:composition>

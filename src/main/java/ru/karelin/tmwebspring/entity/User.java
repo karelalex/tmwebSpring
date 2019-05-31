@@ -7,7 +7,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,4 +21,6 @@ public class User extends AbstractEntity {
     private String login;
     private String passHash;
     private String userName;
+    @ManyToMany
+    private List<Role> roles;
 }
