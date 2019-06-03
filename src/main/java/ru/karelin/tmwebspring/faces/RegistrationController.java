@@ -13,6 +13,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.io.Serializable;
 
 @ManagedBean
 @ViewScoped
@@ -34,7 +35,7 @@ public class RegistrationController {
         user.getRoles().add(new Role("ROLE_USER"));
         userService.save(user);
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Успешно",  "Пользователь " + user.getUserName() + " успешно зарегистрирован") );
+        context.addMessage(null, new FacesMessage("Успешно", "Пользователь " + user.getUserName() + " успешно зарегистрирован"));
         return "main";
     }
 

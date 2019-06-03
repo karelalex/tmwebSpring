@@ -5,6 +5,7 @@ import ru.karelin.tmwebspring.entity.User;
 import ru.karelin.tmwebspring.enumeration.Status;
 import ru.karelin.tmwebspring.service.ProjectService;
 import ru.karelin.tmwebspring.service.UserService;
+import ru.karelin.tmwebspring.service.UserServiceImpl;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -13,6 +14,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -20,14 +22,10 @@ import java.util.List;
 @ViewScoped
 public class ProjectController {
     @ManagedProperty("#{projectService}")
-    private ProjectService projectService;
+   private ProjectService projectService;
 
-    @ManagedProperty("#{userService}")
-    private UserService userService;
-
-    private HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-
-    private String userId = (String)session.getAttribute("userId");
+    @ManagedProperty("#{userServiceImpl}")
+  private UserService userService;
 
     private List<Project> projectList;
 
@@ -38,10 +36,14 @@ public class ProjectController {
     private boolean isCreating = false;
 
     public void initProjectList() {
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        String userId = (String) session.getAttribute("userId");
         projectList = projectService.findAllByUserId(userId);
     }
 
     public String initCurrentProject() throws IOException {
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        String userId = (String) session.getAttribute("userId");
         if (projectId != null) {
             currentProject = projectService.findByIdAndUserId(projectId, userId);
             if (currentProject==null) return "pretty:projectList";
@@ -61,6 +63,8 @@ public class ProjectController {
 
     public String removeProject() {
         if (currentProject == null) return "projectList";
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        String userId = (String) session.getAttribute("userId");
         projectService.remove(currentProject.getId(), userId);
         initProjectList();
         currentProject=null;

@@ -8,11 +8,12 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import java.io.Serializable;
 
 
 @ManagedBean
 @ViewScoped
-public class MainController {
+public class MainController  {
 
     @ManagedProperty(value = "#{userServiceImpl}")
     private UserService userService;
@@ -26,6 +27,11 @@ public class MainController {
 
     public void setUserService(UserService userService) {
         this.userService = userService;
+    }
+
+    private UserService getUserService() {
+        return userService;
+
     }
 
     public String getLogin() {
@@ -46,6 +52,7 @@ public class MainController {
 
     public String getUserName() {
         if (this.userName == null || this.userName.isEmpty()) {
+            HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
             User user = userService.find((String) session.getAttribute("userId"));
             if (user != null)
                 this.userName = user.getUserName();

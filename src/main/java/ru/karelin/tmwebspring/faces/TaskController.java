@@ -15,6 +15,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class TaskController {
     @ManagedProperty("#{taskService}")
     private TaskService taskService;
 
-    @ManagedProperty("#{userService}")
+    @ManagedProperty("#{userServiceImpl}")
     private UserService userService;
 
     @ManagedProperty("#{projectService}")
