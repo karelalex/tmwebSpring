@@ -15,13 +15,12 @@ import javax.faces.validator.ValidatorException;
 @RequestScoped
 public class UserLoginValidator implements Validator {
 
-    @ManagedProperty("#{userService}")
+    @ManagedProperty("#{userServiceImpl}")
     private UserService userService;
 
     @Override
     public void validate(FacesContext facesContext, UIComponent uiComponent, Object o) throws ValidatorException {
         String login = (String) o;
-        System.out.println("Добрый день");
         if (login == null || login.trim().isEmpty()) {
             FacesMessage msg = new FacesMessage("Это поле обязательно для заполнения");
             msg.setSeverity(FacesMessage.SEVERITY_ERROR);

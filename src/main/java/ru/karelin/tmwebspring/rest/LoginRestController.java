@@ -54,11 +54,11 @@ public class LoginRestController implements LoginRestControllerI {
 
     @Override
     @GetMapping(value = "/logout", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Result logout(HttpServletRequest request){
+    public Result logout(){
         try{
-            request.logout();
+            SecurityContextHolder.getContext().setAuthentication(null);
         }
-        catch (ServletException e){
+        catch (Exception e){
             return new Result(false, e.getMessage());
         }
         return new Result();

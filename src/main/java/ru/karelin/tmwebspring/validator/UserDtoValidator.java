@@ -19,7 +19,7 @@ public class UserDtoValidator implements Validator {
     public void validate(Object o, Errors errors) {
         UserRegDto user = (UserRegDto) o;
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "login", "login.required", "Логин не должне быть пустым");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "userName", "userName.required", "Требуется ввести имя пользователя");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "nameOfUser", "userName.required", "Требуется ввести имя пользователя");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "password.required", "Пароль не может быть пустым");
         if (!user.getPassword().equals(user.getPasswordRepeat())) {
             errors.rejectValue("passwordRepeat", "notMatch", "Пароли должны совпадать");

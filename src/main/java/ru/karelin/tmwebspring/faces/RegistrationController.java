@@ -1,6 +1,8 @@
 package ru.karelin.tmwebspring.faces;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.karelin.tmwebspring.dto.UserRegDto;
+import ru.karelin.tmwebspring.entity.Role;
 import ru.karelin.tmwebspring.entity.User;
 import ru.karelin.tmwebspring.service.UserService;
 import ru.karelin.tmwebspring.util.MD5Generator;
@@ -16,16 +18,20 @@ import java.io.IOException;
 @ViewScoped
 public class RegistrationController {
 
-    @ManagedProperty("#{userService}")
+    @ManagedProperty("#{userServiceImpl}")
     private UserService userService;
+
+    @ManagedProperty("#{passwordEncoder}")
+    private PasswordEncoder passwordEncoder;
 
     private UserRegDto userRegDto = new UserRegDto();
 
     public String register() throws IOException {
         User user = new User();
         user.setLogin(userRegDto.getLogin());
-        user.setPassHash(MD5Generator.generate(userRegDto.getPassword()));
+        user.setPassHash(passwordEncoder.encode(userRegDto.getPassword()));
         user.setUserName(userRegDto.getUserName());
+        user.getRoles().add(new Role("ROLE_USER"));
         userService.save(user);
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Успешно",  "Пользователь " + user.getUserName() + " успешно зарегистрирован") );
@@ -47,5 +53,13 @@ public class RegistrationController {
 
     public void setUserService(UserService userService) {
         this.userService = userService;
+    }
+
+    public PasswordEncoder getPasswordEncoder() {
+        return passwordEncoder;
+    }
+
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
     }
 }

@@ -21,7 +21,7 @@
                     </h:panelGroup>
 
                     <p:outputLabel value="Пароль:"/>
-                    <p:password value="#{registrationController.userRegDto.password}" id="password"/>
+                    <p:password value="#{registrationController.userRegDto.password}" id="firstPassword"/>
 
                     <p:outputLabel value="Повтор пароля:"/>
                     <h:panelGroup>
@@ -32,12 +32,12 @@
 
                     <p:outputLabel value="Имя пользователя"/>
                     <h:panelGroup>
-                        <p:inputText value="#{registrationController.userRegDto.userName}" id="username" required="true"
+                        <p:inputText value="#{registrationController.userRegDto.userName}" id="nameOfUser" required="true"
                                      requiredMessage="Это поле обязательно для заполнения"
                                      validatorMessage="Длина должна быть не менее 5 символов" placeholder="Иван Иванов">
                             <f:validateLength minimum="5"/>
                         </p:inputText>
-                        <p:message for="username" style="color: red" severity="error"/>
+                        <p:message for="nameOfUser" style="color: red" severity="error"/>
                     </h:panelGroup>
 
                 </p:panelGrid>

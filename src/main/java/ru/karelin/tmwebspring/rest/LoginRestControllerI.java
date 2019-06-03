@@ -15,5 +15,5 @@ public interface LoginRestControllerI {
                  @RequestParam(name = "password") String password, HttpSession session,  HttpServletRequest httpServletRequest);
 
     @GetMapping(value = "/logout", produces = MediaType.APPLICATION_JSON_VALUE)
-    Result logout(HttpServletRequest request);
+    Result logout();
 }

@@ -9,7 +9,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import ru.karelin.tmwebspring.dto.Result;
 import ru.karelin.tmwebspring.entity.User;
 import ru.karelin.tmwebspring.service.UserService;
 
@@ -49,5 +48,12 @@ public class LoginEndpoint {
             return null;
         }
     }
+
+    @WebMethod
+    public boolean singOut() {
+        SecurityContextHolder.getContext().setAuthentication(null);
+        return true;
+    }
+
 
 }
