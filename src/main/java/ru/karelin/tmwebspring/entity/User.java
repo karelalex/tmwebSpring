@@ -5,10 +5,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,10 +15,18 @@ import java.util.List;
 @Table(name = "user_info")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class User extends AbstractEntity {
+
     @Column(unique = true)
     private String login;
+
+    @Column(name = "passHash")
     private String passHash;
+
+    @Column(name = "username")
     private String userName;
     @ManyToMany
+    @JoinTable(name = "user_info_role",
+            joinColumns = @JoinColumn(name = "User_id"),
+            inverseJoinColumns = @JoinColumn(name = "roles_id"))
     private List<Role> roles = new ArrayList<>();
 }

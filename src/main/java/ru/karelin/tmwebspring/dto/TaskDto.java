@@ -19,10 +19,12 @@ public class TaskDto extends AbstractEntity {
 
     private String description;
 
+    @Column(name = "startingDate")
     @Temporal(TemporalType.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = StdDateFormat.DATE_FORMAT_STR_ISO8601)
     private Date startingDate;
 
+    @Column(name = "finishDate")
     @Temporal(TemporalType.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = StdDateFormat.DATE_FORMAT_STR_ISO8601)
     private Date finishDate;

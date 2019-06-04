@@ -1,28 +1,27 @@
 package ru.karelin.tmwebspring.faces;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 import ru.karelin.tmwebspring.dto.UserRegDto;
 import ru.karelin.tmwebspring.entity.Role;
 import ru.karelin.tmwebspring.entity.User;
 import ru.karelin.tmwebspring.service.UserService;
-import ru.karelin.tmwebspring.util.MD5Generator;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.io.Serializable;
 
-@ManagedBean
-@ViewScoped
+@Component
+@Scope("view")
 public class RegistrationController {
 
-    @ManagedProperty("#{userServiceImpl}")
+    @Autowired
     private UserService userService;
 
-    @ManagedProperty("#{passwordEncoder}")
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     private UserRegDto userRegDto = new UserRegDto();
@@ -32,7 +31,7 @@ public class RegistrationController {
         user.setLogin(userRegDto.getLogin());
         user.setPassHash(passwordEncoder.encode(userRegDto.getPassword()));
         user.setUserName(userRegDto.getUserName());
-        user.getRoles().add(new Role("ROLE_USER"));
+        user.getRoles().add(new Role("ROLE_USER")); //todo fix it
         userService.save(user);
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Успешно", "Пользователь " + user.getUserName() + " успешно зарегистрирован"));

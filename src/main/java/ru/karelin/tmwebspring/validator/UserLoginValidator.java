@@ -1,5 +1,7 @@
 package ru.karelin.tmwebspring.validator;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.karelin.tmwebspring.service.UserService;
 
 import javax.faces.application.FacesMessage;
@@ -11,11 +13,11 @@ import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
 @FacesValidator("loginValidator")
-@ManagedBean(name = "userLoginValidator")
+@Component
 @RequestScoped
 public class UserLoginValidator implements Validator {
 
-    @ManagedProperty("#{userServiceImpl}")
+    @Autowired
     private UserService userService;
 
     @Override
@@ -38,11 +40,4 @@ public class UserLoginValidator implements Validator {
         }
     }
 
-    public UserService getUserService() {
-        return userService;
-    }
-
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
 }

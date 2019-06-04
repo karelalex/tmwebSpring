@@ -1,6 +1,7 @@
 package ru.karelin.tmwebspring.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 
 
 @EnableWebSecurity
+@ComponentScan("ru.karelin.tmwebspring")
 @EnableGlobalMethodSecurity(jsr250Enabled = true, securedEnabled = true, prePostEnabled = true)
 @Configuration
 @Order(1)

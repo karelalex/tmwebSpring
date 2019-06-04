@@ -1,21 +1,21 @@
 package ru.karelin.tmwebspring.faces;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import ru.karelin.tmwebspring.entity.User;
 import ru.karelin.tmwebspring.service.UserService;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
-import java.io.Serializable;
 
 
-@ManagedBean
-@ViewScoped
+@Component
+@Scope("view")
 public class MainController  {
 
-    @ManagedProperty(value = "#{userServiceImpl}")
+    @Autowired
     private UserService userService;
 
     private HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);

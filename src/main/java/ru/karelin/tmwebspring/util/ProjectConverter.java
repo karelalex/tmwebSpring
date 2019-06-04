@@ -1,5 +1,7 @@
 package ru.karelin.tmwebspring.util;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.karelin.tmwebspring.entity.Project;
 import ru.karelin.tmwebspring.service.ProjectService;
 
@@ -12,22 +14,16 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.servlet.http.HttpSession;
 
-@FacesConverter("projectConverter")
-@ManagedBean(name = "projectConverter")
+
+@Component
 @RequestScoped
 public class ProjectConverter implements Converter {
 
-    private HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+    @Autowired
+    private HttpSession session;
 
-    public ProjectService getProjectService() {
-        return projectService;
-    }
 
-    public void setProjectService(ProjectService projectService) {
-        this.projectService = projectService;
-    }
-
-    @ManagedProperty("#{projectService}")
+    @Autowired
     private ProjectService projectService;
 
     @Override

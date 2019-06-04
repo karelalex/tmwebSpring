@@ -1,30 +1,32 @@
 package ru.karelin.tmwebspring.faces;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import ru.karelin.tmwebspring.entity.Project;
 import ru.karelin.tmwebspring.entity.User;
 import ru.karelin.tmwebspring.enumeration.Status;
 import ru.karelin.tmwebspring.service.ProjectService;
 import ru.karelin.tmwebspring.service.UserService;
-import ru.karelin.tmwebspring.service.UserServiceImpl;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.persistence.Access;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-@ManagedBean
-@ViewScoped
+@Component
+@Scope("view")
 public class ProjectController {
-    @ManagedProperty("#{projectService}")
+    @Autowired
    private ProjectService projectService;
 
-    @ManagedProperty("#{userServiceImpl}")
+    @Autowired
   private UserService userService;
 
     private List<Project> projectList;

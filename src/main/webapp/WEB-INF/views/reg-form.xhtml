@@ -26,7 +26,7 @@
                     <p:outputLabel value="Повтор пароля:"/>
                     <h:panelGroup>
                         <p:password value="#{registrationController.userRegDto.passwordRepeat}" id="passRepeat"
-                                    validator="UserPasswordValidator"/>
+                                    validator="#{userPasswordValidator.validate}"/>
                         <p:message for="passRepeat" style="color: red"/>
                     </h:panelGroup>
 

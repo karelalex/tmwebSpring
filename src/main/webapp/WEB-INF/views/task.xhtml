@@ -70,7 +70,7 @@
                         <p:calendar value="#{taskController.currentTask.finishDate}"
                                     pattern="dd-MM-yyyy" mask="true"
                                     id="finishDate" rendered="#{taskController.creating==true}">
-                            <f:validator validatorId="DateValidator"/>
+                            <f:validator binding="#{dateValidator}"/>
                         </p:calendar>
                         <p:message for="finishDate" style="color: red"
                                    rendered="#{taskController.creating==true}"/></h:panelGroup>

@@ -19,6 +19,7 @@
         <view-id value="/WEB-INF/views/project.xhtml"/>
         <action>#{projectController.initCurrentProject}</action>
     </url-mapping>
+
     <url-mapping id="project">
         <pattern value="/project/#{projectId : projectController.projectId}"/>
         <query-param name="create">#{projectController.creating}</query-param>

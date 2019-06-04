@@ -59,7 +59,7 @@
                         <p:calendar value="#{projectController.currentProject.finishDate}"
                                     pattern="dd-MM-yyyy" mask="true"
                                     id="finishDate" rendered="#{projectController.creating==true}">
-                            <f:validator validatorId="DateValidator"/>
+                            <f:validator binding="#{dateValidator}"/>
                         </p:calendar>
                         <p:message for="finishDate" style="color: red" rendered="#{projectController.creating==true}" /></h:panelGroup>
 

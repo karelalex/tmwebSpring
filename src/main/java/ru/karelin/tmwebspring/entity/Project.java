@@ -22,10 +22,12 @@ public class Project extends AbstractEntity {
 
     private String description;
 
+    @Column(name = "startingDate")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date startingDate;
 
+    @Column(name = "finishDate")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date finishDate;

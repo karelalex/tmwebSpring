@@ -15,8 +15,6 @@ import ru.karelin.tmwebspring.dto.Result;
 import ru.karelin.tmwebspring.entity.User;
 import ru.karelin.tmwebspring.service.UserService;
 
-import javax.annotation.Resource;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -44,6 +42,7 @@ public class LoginRestController implements LoginRestControllerI {
             return new Result(authentication.isAuthenticated());
         }
         catch (Exception e) {
+            e.printStackTrace();
             return new Result(false, e.getMessage());
         }
     }

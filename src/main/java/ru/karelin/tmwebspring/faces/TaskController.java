@@ -1,5 +1,8 @@
 package ru.karelin.tmwebspring.faces;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import ru.karelin.tmwebspring.entity.Project;
 import ru.karelin.tmwebspring.entity.Task;
 import ru.karelin.tmwebspring.entity.User;
@@ -8,27 +11,24 @@ import ru.karelin.tmwebspring.service.ProjectService;
 import ru.karelin.tmwebspring.service.TaskService;
 import ru.karelin.tmwebspring.service.UserService;
 
-import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-@ManagedBean
-@ViewScoped
+@Component
+@Scope("view")
 public class TaskController {
-    @ManagedProperty("#{taskService}")
+    @Autowired
     private TaskService taskService;
 
-    @ManagedProperty("#{userServiceImpl}")
+    @Autowired
     private UserService userService;
 
-    @ManagedProperty("#{projectService}")
+    @Autowired
     private ProjectService projectService;
 
     private HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
