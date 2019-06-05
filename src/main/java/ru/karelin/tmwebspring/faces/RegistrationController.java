@@ -21,20 +21,12 @@ public class RegistrationController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
     private UserRegDto userRegDto = new UserRegDto();
 
     public String register() throws IOException {
-        User user = new User();
-        user.setLogin(userRegDto.getLogin());
-        user.setPassHash(passwordEncoder.encode(userRegDto.getPassword()));
-        user.setUserName(userRegDto.getUserName());
-        user.getRoles().add(new Role("ROLE_USER")); //todo fix it
-        userService.save(user);
+        userService.save(userRegDto);
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Успешно", "Пользователь " + user.getUserName() + " успешно зарегистрирован"));
+        context.addMessage(null, new FacesMessage("Успешно", "Пользователь " + userRegDto.getUserName() + " успешно зарегистрирован"));
         return "main";
     }
 
@@ -47,19 +39,5 @@ public class RegistrationController {
         this.userRegDto = userRegDto;
     }
 
-    public UserService getUserService() {
-        return userService;
-    }
 
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
-
-    public PasswordEncoder getPasswordEncoder() {
-        return passwordEncoder;
-    }
-
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
 }

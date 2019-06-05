@@ -25,6 +25,7 @@ public class MainController  {
 
     private String userName;
 
+
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
@@ -57,7 +58,7 @@ public class MainController  {
             if (user != null)
                 this.userName = user.getUserName();
         }
-        return this.userName;
+        return this.userName+this.hashCode();
     }
 
     public void setUserName(String userName) {

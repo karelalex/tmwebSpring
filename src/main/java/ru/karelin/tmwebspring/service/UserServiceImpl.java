@@ -5,10 +5,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.karelin.tmwebspring.dto.UserRegDto;
 import ru.karelin.tmwebspring.entity.Role;
 import ru.karelin.tmwebspring.entity.User;
+import ru.karelin.tmwebspring.repository.RoleRepository;
 import ru.karelin.tmwebspring.repository.UserRepository;
 import ru.karelin.tmwebspring.util.MD5Generator;
 
@@ -21,6 +24,12 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     @Override
@@ -52,6 +61,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public void save(User user) {
         if(user==null) return;
+        userRepository.save(user);
+    }
+
+    @Override
+    public void save(UserRegDto userDto){
+        User user = new User();
+        user.setLogin(userDto.getLogin());
+        user.setPassHash(passwordEncoder.encode(userDto.getPassword()));
+        user.setUserName(userDto.getUserName());
+        user.getRoles().add(roleRepository.findByName("ROLE_USER"));
         userRepository.save(user);
     }
 

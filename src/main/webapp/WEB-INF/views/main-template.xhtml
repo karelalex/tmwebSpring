@@ -37,6 +37,7 @@
                 <p:menuitem value="Регистрация" outcome="registration" icon="fa fa-hand-o-up"/>
             </sec:authorize>
 
+
             <f:facet name="options">
                 <sec:authorize access="!isAuthenticated()">
                     <form id="loginForm" action="#{request.contextPath}/singIn" method="post"
