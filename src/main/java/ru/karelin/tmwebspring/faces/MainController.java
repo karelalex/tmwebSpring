@@ -58,7 +58,7 @@ public class MainController  {
             if (user != null)
                 this.userName = user.getUserName();
         }
-        return this.userName+this.hashCode();
+        return this.userName;
     }
 
     public void setUserName(String userName) {
